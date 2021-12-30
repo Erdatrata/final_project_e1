@@ -10,28 +10,25 @@ import {
 import Logo from '../components/Logo';
 import Form from '../components/Form';
 
-const Login = props => {
-        return(
-            <View style={styles.container} >
-                <Logo/>
-                <Form type="Login"/>
-                <View style={styles.signupTextCont}>
-                    <Text style={styles.signupText}> Don't have an account yet? </Text>
-                    <Text style={styles.signupButton}>
-                    <Button 
-                     onPress={() => props.navigation.navigate('Signup')}
-                     title="Signup"
-                     
-                   />
-                    </Text>
-                  
+
+
+        const Signup = props => {
+            return(
+                <View style={styles.container} >
+                    <Logo/>
+                    <Form type="Signup" />
+                    <View style={styles.signupTextCont}>
+                        <Text style={styles.signupText}> Already have an account ? </Text>
+                        <Text style={styles.signupButton}>
+                        <Button  onPress={() => props.navigation.navigate('Login')}
+                            title="Sign in"
+                        />
+                        </Text>
+                    </View>
                 </View>
-                
-            </View>
-        
-        )
-        
-}
+            )
+    }
+
 
 const  styles=StyleSheet.create({
     container:{
@@ -59,4 +56,4 @@ const  styles=StyleSheet.create({
     }
   
   });
-  export default Login;
+  export default Signup;

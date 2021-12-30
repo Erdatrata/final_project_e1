@@ -1,21 +1,34 @@
 import React,{Component} from "react";
+import 'react-native-gesture-handler';
+// import things related to React Navigation
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import { 
   View,
   Text,
   StyleSheet,
   StatusBar, 
 }from 'react-native';
-import Login from './src/pages/Login';
+
+import Login from "./src/pages/Login";
+import Signup from "./src/pages/Signup";
+// create a "stack"
+const MyStack = createStackNavigator();
+
 export default class App extends Component {
   render(){
     return(
-      <View style={styles.container}>
-        <StatusBar
-          backgroundColor="#1c313a"
-          barStyle="light-content"
-          />
-        <Login/>
-      </View>
+       
+       <NavigationContainer>
+        <MyStack.Navigator >
+          
+        <MyStack.Screen  name="Login"   component={Login} options={{headerMode: 'none', headerShown : false}} />
+        <MyStack.Screen name="Signup"  component={Signup}options={{headerMode: 'none', headerShown : false}} />
+        
+        </MyStack.Navigator>
+        </NavigationContainer> 
+        
+      
     );
   }
  
