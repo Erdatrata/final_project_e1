@@ -21,7 +21,11 @@ const Login = props => {
                     <Button 
                      onPress={() => props.navigation.navigate('Signup')}
                      title="Signup"
+<<<<<<< HEAD
                      hideNavBar={true}
+=======
+                     
+>>>>>>> master
                    />
                     </Text>
                   
