@@ -3,12 +3,14 @@ import { View, Text, Button,TouchableOpacity,Image,  StyleSheet, FlatList } from
 import FormInput from '../components/FormInput'
 import FormButton from '../components/FormButton';
 import SocialButton from '../components/SocialButton';
+import {AuthContext} from '../navigation/AuthProvider';
 
 
 const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmpassword, setconfirmpassword] = useState();
+  const {register} = useContext(AuthContext);
     return (
      
       <View style={styles.container}>
@@ -41,7 +43,7 @@ const SignupScreen = ({navigation}) => {
 
       <FormButton
         buttonTitle="Sign Up"
-        onPress={() => alert('Terms Clicked!')}
+        onPress={() => register(email, password)}
       />
          <View style={styles.textPrivate}>
         <Text style={styles.color_textPrivate}>

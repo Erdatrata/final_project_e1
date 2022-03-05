@@ -10,30 +10,26 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/google-signin": "^5.0.0",
     "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-firebase/app": "^14.2.1",
+    "@react-native-firebase/auth": "^14.5.0",
+    "@react-native-firebase/firestore": "^14.5.0",
+    "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/stack": "^6.0.11",
     "add": "^2.0.6",
-<<<<<<< HEAD
-    "react": "17.0.2",
-    "react-native": "0.66.4",
-    "react-native-gesture-handler": "^1.10.3",
-    "react-native-onboarding-swiper": "^1.1.4",
-=======
     "i": "^0.3.7",
     "react": "17.0.2",
     "react-native": "0.66.4",
     "react-native-gesture-handler": "^1.10.3",
->>>>>>> master
+    "react-native-onboarding-swiper": "^1.1.4",
     "react-native-reanimated": "^1.13.3",
     "react-native-router-flux": "^4.3.1",
     "react-native-router-flux-cli": "^0.0.1",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.10.1",
-<<<<<<< HEAD
     "react-native-vector-icons": "^7.1.0",
-=======
->>>>>>> master
     "yarn": "^1.22.17"
   },
   "devDependencies": {
