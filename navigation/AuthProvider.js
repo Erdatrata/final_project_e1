@@ -5,7 +5,7 @@ import { GoogleSignin } from '@react-native-community/google-signin';
 // import { LoginManager, AccessToken } from 'react-native-fbsdk';
 
 export const AuthContext = createContext();
-
+// new rata
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
 
