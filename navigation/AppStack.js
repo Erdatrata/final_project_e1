@@ -3,7 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen';
 const Stack = createStackNavigator();
 
-
+//rata
 const AppStack = () => {
   return(<Stack.Navigator>
     <Stack.Screen name='Home' component={HomeScreen}/>
