@@ -1,17 +1,9 @@
-import React, {useState, useContext} from 'react';
-import {
-  View,
-  Text,
-  Platform,
-  StyleSheet,
-  Alert,
-  ActivityIndicator,
-  Button,
-} from 'react-native';
+import React from 'react';
+import { StyleSheet,  View} from 'react-native'
 // import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
-
+import ActionButton from 'react-native-action-button';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 
@@ -25,15 +17,30 @@ import {
 } from '../styles/AddPost';
 
 import { AuthContext } from '../navigation/AuthProvider';
-
 const AddPostScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Add Post Screen</Text>
-      <Button
-      title="Click Here"
-      onPress={()=> alert('Button Clicked')}
+      <InputWrapper>
+      <InputField 
+        placeholder="What's on your mind?"
+        multiline
+        numberOfLines={4}
       />
+      </InputWrapper>
+      <ActionButton buttonColor="rgba(231,76,60,1)">
+          <ActionButton.Item 
+          buttonColor='#9b59b6'
+          title="Take Photo" 
+          onPress={() => console.log("notes tapped!")}>
+            <Icon name="camera-outline" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+          <ActionButton.Item 
+          buttonColor='#3498db'
+          title="Choose Photo" 
+          onPress={() => {}}>
+          <Icon name="md-images-outline" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+        </ActionButton>
     </View>
   );
 };
