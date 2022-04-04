@@ -1,9 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
 import {View,LogBox, TouchableOpacity, Text} from 'react-native';
-=======
-import {View, TouchableOpacity, Text} from 'react-native';
->>>>>>> new_master
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -12,16 +8,13 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 
 import HomeScreen from '../screens/HomeScreen';
-import AddPostScreen from '../screens/AddPostScreen';
+import ChatScreen from '../screens/ChatScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import AddPostScreen from '../screens/AddPostScreen';
 import MessagesScreen from '../screens/MessagesScreen';
+import EditProfileScreen from '../screens/EditProfileScreen';
 const Stack = createStackNavigator();
 const Tab=createBottomTabNavigator();
-<<<<<<< HEAD
-
-=======
-import { LogBox } from 'react-native';
->>>>>>> new_master
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
 //rata

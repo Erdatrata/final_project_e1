@@ -42,6 +42,8 @@ export const UserName = styled.Text`
 export const PostTime = styled.Text`
     font-size: 12px;
     font-family: 'Lato-Regular';
+   
+    
     color: #666;
 `;
 
@@ -56,7 +58,9 @@ export const PostText = styled.Text`
 export const PostImg = styled.Image`
     width: 100%;
     height: 250px;
-    /* margin-top: 15px; */
+    padding-left: 200px;
+    padding-right: 200px;
+    // margin-top: 1500px; 
 `;
 
 export const Divider = styled.View`

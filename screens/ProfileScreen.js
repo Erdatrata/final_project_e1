@@ -12,12 +12,12 @@ import FormButton from '../components/FormButton';
 import {AuthContext} from '../navigation/AuthProvider';
 
 import firestore from '@react-native-firebase/firestore';
-// import PostCard from '../components/PostCard';
+import PostCard from '../components/PostCard';
 
 const ProfileScreen = ({navigation, route}) => {
   const {user, logout} = useContext(AuthContext);
-
   const [posts, setPosts] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
   const [userData, setUserData] = useState(null);
@@ -28,7 +28,7 @@ const ProfileScreen = ({navigation, route}) => {
 
       await firestore()
         .collection('posts')
-        .where('userId', '==', route.params ? route.params.userId : user.uid)
+        .where('userId','==',user.uid)
         .orderBy('postTime', 'desc')
         .get()
         .then((querySnapshot) => {
@@ -70,44 +70,24 @@ const ProfileScreen = ({navigation, route}) => {
       console.log(e);
     }
   };
-
-  const getUser = async() => {
-    await firestore()
-    .collection('users')
-    .doc( route.params ? route.params.userId : user.uid)
-    .get()
-    .then((documentSnapshot) => {
-      if( documentSnapshot.exists ) {
-        console.log('User Data', documentSnapshot.data());
-        setUserData(documentSnapshot.data());
-      }
-    })
-  }
-
-  useEffect(() => {
-    getUser();
-    fetchPosts();
-    navigation.addListener("focus", () => setLoading(!loading));
-  }, [navigation, loading]);
-
-  const handleDelete = () => {};
-
-  return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}}
-        showsVerticalScrollIndicator={false}>
-        <Image
-          style={styles.userImg}
-          source={{uri: userData ? userData.userImg || 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg' : 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg'}}
-        />
-        <Text style={styles.userName}>{userData ? userData.fname || 'Test' : 'Test'} {userData ? userData.lname || 'User' : 'User'}</Text>
-        {/* <Text>{route.params ? route.params.userId : user.uid}</Text> */}
-        <Text style={styles.aboutUser}>
-        {userData ? userData.about || 'No details added.' : ''}
-        </Text>
-        <View style={styles.userBtnWrapper}>
+useEffect(()=>{
+  fetchPosts();
+},[])
+const handleDelete=()=>{}
+return (
+<SafeAreaView style={{flex:1,backgroundColor:'#fff'}}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{justifyContent:'center',alignItems:'center'}}
+      showsVerticalScrollIndicator={false}
+      >
+      <Image style={styles.userImg} source={require('../assets/users/user-8.jpg')}
+      />
+      <Text style={styles.userName}>jenny Doe</Text>
+      <Text style={styles.aboutUser}>
+        yosi rata the king and this is test
+      </Text>
+      <View style={styles.userBtnWrapper}>
           {route.params ? (
             <>
               <TouchableOpacity style={styles.userBtn} onPress={() => {}}>
@@ -132,7 +112,6 @@ const ProfileScreen = ({navigation, route}) => {
             </>
           )}
         </View>
-
         <View style={styles.userInfoWrapper}>
           <View style={styles.userInfoItem}>
             <Text style={styles.userInfoTitle}>{posts.length}</Text>
@@ -148,12 +127,12 @@ const ProfileScreen = ({navigation, route}) => {
           </View>
         </View>
 
-        {/* {posts.map((item) => (
+        {posts.map((item) => (
           <PostCard key={item.id} item={item} onDelete={handleDelete} />
-        ))} */}
-      </ScrollView>
-    </SafeAreaView>
-  );
+        ))}
+    </ScrollView>
+</SafeAreaView>
+ );
 };
 
 export default ProfileScreen;
