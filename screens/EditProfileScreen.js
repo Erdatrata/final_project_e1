@@ -154,7 +154,7 @@ const EditProfileScreen = () => {
     });
   };
 
-renderInner = () => (
+  renderInner = () => (
     <View style={styles.panel}>
       <View style={{alignItems: 'center'}}>
         <Text style={styles.panelTitle}>Upload Photo</Text>
@@ -176,15 +176,15 @@ renderInner = () => (
         <Text style={styles.panelButtonTitle}>Cancel</Text>
       </TouchableOpacity>
     </View>
-);
+  );
 
-renderHeader = () => (
+  renderHeader = () => (
     <View style={styles.header}>
       <View style={styles.panelHeader}>
         <View style={styles.panelHandle} />
       </View>
     </View>
-);
+  );
 
   bs = React.createRef();
   fall = new Animated.Value(1);
