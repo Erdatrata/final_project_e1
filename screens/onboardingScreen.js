@@ -52,22 +52,18 @@ const onboardingScreen = ({navigation}) => {
       onDone={() => navigation.navigate("Login")}
       pages={[
         {
-          backgroundColor: '#a6e4d0',
-          image: <Image source={require('../assets/onboarding-img1.png')} />,
-          title: 'Onboarding 1',
-          subtitle: 'Done with React Native Onboarding Swiper',
+          backgroundColor: '#808080',
+          image: <Image source={require('../assets/278502601_3092185041111761_6584351267689766855_n.jpg')} />,
+    
         },
         {
           backgroundColor: '#fdeb93',
-          image: <Image source={require('../assets/onboarding-img2.png')} />,
-          title: 'Onboarding 2',
-          subtitle: 'Done with React Native Onboarding Swiper',
+          image: <Image source={require('../assets/278066007_3086410955022503_5105314485779472516_n.jpg')} />,
+      
         },
         {
           backgroundColor: '#e9bcbe',
-          image: <Image source={require('../assets/onboarding-img3.png')} />,
-          title: 'Onboarding 3',
-          subtitle: 'Done with React Native Onboarding Swiper',
+          image: <Image source={require('../assets/278359575_3090764024587196_257655291605580400_n.jpg')} />,
         },
        ]}
     />

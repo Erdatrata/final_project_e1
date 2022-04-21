@@ -8,7 +8,15 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-
+import {
+  getDatabase,
+  get,
+  ref,
+  set,
+  onValue,
+  push,
+  update,
+} from 'firebase/database';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -29,6 +37,8 @@ const EditProfileScreen = () => {
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
   const [userData, setUserData] = useState(null);
+  const [myData, setMyData] = useState(null);
+    const [users, setUsers] = useState([]);
 
   const getUser = async() => {
     const currentUser = await firestore()
@@ -45,7 +55,38 @@ const EditProfileScreen = () => {
 
   const handleUpdate = async() => {
     let imgUrl = await uploadImage();
+    try {
+      const database = getDatabase();
+      //first check if the user registered before
+      tamp=userData.fname
+      const user = await findUser(tamp);
+      //create a new user if not registered
+      if (user) {
+        setMyData(tamp);
+      } else {
+        const newUserObj = {
+          username: tamp,
+          avatar: 'https://i.pravatar.cc/150?u=' + Date.now(),
+        };
 
+        set(ref(database, `users/${tamp}`), newUserObj);
+        setMyData(newUserObj);
+      }
+
+      // set friends list change listener
+      const myUserRef = ref(database, `users/${tamp}`);
+      onValue(myUserRef, snapshot => {
+        const data = snapshot.val();
+        setUsers(data.friends);
+        setMyData(prevData => ({
+          ...prevData,
+          friends: data.friends,
+        }));
+      });
+      setCurrentPage('users');
+    } catch (error) {
+      console.error(error);
+    }
     if( imgUrl == null && userData.userImg ) {
       imgUrl = userData.userImg;
     }
@@ -55,7 +96,6 @@ const EditProfileScreen = () => {
     .doc(user.uid)
     .update({
       fname: userData.fname,
-      lname: userData.lname,
       about: userData.about,
       phone: userData.phone,
       country: userData.country,
@@ -70,7 +110,13 @@ const EditProfileScreen = () => {
       );
     })
   }
+  const findUser = async name => {
+    const database = getDatabase();
 
+    const mySnapshot = await get(ref(database, `users/${name}`));
+
+    return mySnapshot.val();
+  };
   const uploadImage = async () => {
     if( image == null ) {
       return null;
@@ -176,6 +222,7 @@ const EditProfileScreen = () => {
         <Text style={styles.panelButtonTitle}>Cancel</Text>
       </TouchableOpacity>
     </View>
+  
   );
 
   renderHeader = () => (
@@ -250,7 +297,7 @@ const EditProfileScreen = () => {
             </View>
           </TouchableOpacity>
           <Text style={{marginTop: 10, fontSize: 18, fontWeight: 'bold'}}>
-            {userData ? userData.fname : ''} {userData ? userData.lname : ''}
+            {userData ? userData.fname : ''} 
           </Text>
           {/* <Text>{user.uid}</Text> */}
         </View>
@@ -258,22 +305,11 @@ const EditProfileScreen = () => {
         <View style={styles.action}>
           <FontAwesome name="user-o" color="#333333" size={20} />
           <TextInput
-            placeholder="First Name"
+            placeholder="User Name"
             placeholderTextColor="#666666"
             autoCorrect={false}
             value={userData ? userData.fname : ''}
             onChangeText={(txt) => setUserData({...userData, fname: txt})}
-            style={styles.textInput}
-          />
-        </View>
-        <View style={styles.action}>
-          <FontAwesome name="user-o" color="#333333" size={20} />
-          <TextInput
-            placeholder="Last Name"
-            placeholderTextColor="#666666"
-            value={userData ? userData.lname : ''}
-            onChangeText={(txt) => setUserData({...userData, lname: txt})}
-            autoCorrect={false}
             style={styles.textInput}
           />
         </View>

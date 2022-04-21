@@ -35,6 +35,8 @@ export const UserInfoText = styled.View`
 
 export const UserName = styled.Text`
     font-size: 14px;
+    padding-left: 14px;
+    padding-right: 160px;
     font-weight: bold;
     font-family: 'Lato-Regular';
 `;
@@ -50,8 +52,8 @@ export const PostTime = styled.Text`
 export const PostText = styled.Text`
     font-size: 14px;
     font-family: 'Lato-Regular';
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 14px;
+    padding-right: 60px;
     margin-bottom: 15px;
 `;
 
