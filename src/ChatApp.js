@@ -3,9 +3,6 @@ import Chat from './Chat';
 import Login from './Login';
 import Users from './Users';
 import {
-  Alert,
-} from 'react-native';
-import {
   getDatabase,
   get,
   ref,
@@ -14,6 +11,7 @@ import {
   push,
   update,
 } from 'firebase/database';
+
 export default function ChatApp() {
   const [currentPage, setCurrentPage] = useState('login');
   const [username, setUsername] = useState(null);
@@ -33,12 +31,15 @@ export default function ChatApp() {
       if (user) {
         setMyData(user);
       } else {
-         Alert.alert(
-          'User Name pleasa',
-         );
-        return null
+        const newUserObj = {
+          username: username,
+          avatar: 'https://i.pravatar.cc/150?u=' + Date.now(),
         };
-        
+
+        set(ref(database, `users/${username}`), newUserObj);
+        setMyData(newUserObj);
+      }
+
       // set friends list change listener
       const myUserRef = ref(database, `users/${username}`);
       onValue(myUserRef, snapshot => {
