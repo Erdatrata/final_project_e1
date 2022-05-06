@@ -50,8 +50,8 @@ export const PostTime = styled.Text`
 export const PostText = styled.Text`
     font-size: 14px;
     font-family: 'Lato-Regular';
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 14px;
+    padding-right: 75px;
     margin-bottom: 15px;
 `;
 
