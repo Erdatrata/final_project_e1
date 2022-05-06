@@ -1,4 +1,4 @@
-import React, {useEffect, useState,} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   ScrollView,
@@ -7,8 +7,6 @@ import {
   FlatList,
   SafeAreaView,
   Alert,
-  RefreshControl, 
- 
 } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
@@ -27,7 +25,7 @@ const HomeScreen = ({navigation}) => {
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
-  const [refreshing, setRefreshing] = React.useState(false);
+
   const fetchPosts = async () => {
     try {
       const list = [];
@@ -75,13 +73,7 @@ const HomeScreen = ({navigation}) => {
       console.log(e);
     }
   };
-  const wait = (timeout) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
-  }
-  const onRefresh = React.useCallback(() => {
-    fetchPosts();
-    wait(2000).then(() =>  setDeleted(false));
-  }, []);
+
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -221,23 +213,14 @@ const HomeScreen = ({navigation}) => {
               />
             )}
             keyExtractor={(item) => item.id}
-            refreshControl={
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={onRefresh}
-              />
-            }
             ListHeaderComponent={ListHeader}
             ListFooterComponent={ListHeader}
             showsVerticalScrollIndicator={false}
           />
         </Container>
       )}
-   
     </SafeAreaView>
   );
-
 };
 
 export default HomeScreen;
-
