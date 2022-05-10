@@ -17,6 +17,7 @@
     "@react-native-firebase/storage": "^14.7.0",
     "@react-native-masked-view/masked-view": "^0.2.6",
     "@react-navigation/bottom-tabs": "^6.2.0",
+    "@react-navigation/drawer": "^6.4.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/stack": "^6.0.11",
     "add": "^2.0.6",
@@ -30,6 +31,7 @@
     "react-native-image-crop-picker": "^0.37.3",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-onboarding-swiper": "^1.1.4",
+    "react-native-paper": "^4.12.1",
     "react-native-reanimated": "^1.13.3",
     "react-native-router-flux": "^4.3.1",
     "react-native-router-flux-cli": "^0.0.1",
@@ -37,6 +39,7 @@
     "react-native-screens": "^3.10.1",
     "react-native-skeleton-placeholder": "^5.0.0",
     "react-native-vector-icons": "^7.1.0",
+    "react-router-dom": "^0.0.0-experimental-compat.6",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "styled-components": "^5.3.5",
     "yarn": "^1.22.17"
