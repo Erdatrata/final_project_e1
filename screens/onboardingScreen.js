@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button,Image,TouchableOpacity,  StyleSheet } from 'react-native';
+import { View, Text, Button,Image,TouchableOpacity,  StyleSheet  } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
 const Dots = ({selected}) => {
   let backgroundColor;
@@ -42,6 +42,7 @@ const Done =({...props}) => (
 )
 
 const onboardingScreen = ({navigation}) => {
+
     return (
       <Onboarding
       SkipButtonComponent={Skip}

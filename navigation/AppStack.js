@@ -17,7 +17,7 @@ import EditProfileScreen from '../screens/EditProfileScreen';
 import DrawerContent from '../screens/DrawerContent';
 import getin_function from '../screens/Getin_function';
 import num_of_cum from '../screens/Number_customers';
-import menu from '../screens/menu';
+import menu from '../screens/MainTabScreen';
 import who_h from '../screens/who_h';
 import L_and_F from '../screens/Lost_and_found';
 import about_us from '../screens/A_us';

@@ -81,7 +81,7 @@ return (
       contentContainerStyle={{justifyContent:'center',alignItems:'center'}}
       showsVerticalScrollIndicator={false}
       >
-      <Image style={styles.userImg} source={require('../assets/users/user-8.jpg')}
+      <Image style={styles.userImg} source={"https://i.pravatar.cc/150?u="}
       />
       <Text style={styles.userName}>jenny Doe</Text>
       <Text style={styles.aboutUser}>
