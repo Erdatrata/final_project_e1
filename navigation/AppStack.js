@@ -225,16 +225,7 @@ const AppStack = () => {
           ),
         }}
       />
-      <Drawer.Screen
-      name="Number of Cuostomers"
-      component={num_of_cum}
-      options={{
-        drawerIcon:({focused,color,size})=>(
-            <Icon name="ils" style={{fontSize:size,color:color}}/>
-            
-          ),
-        }}
-      />
+
       <Drawer.Screen
       name="Lost and Found"
       component={ L_and_F}
@@ -251,6 +242,16 @@ const AppStack = () => {
       options={{
         drawerIcon:({focused,color,size})=>(
             <Icon name="handshake-o" style={{fontSize:size,color:color}}/>
+            
+          ),
+        }}
+      />
+    <Drawer.Screen
+      name="Log Out"
+      component={num_of_cum}
+      options={{
+        drawerIcon:({focused,color,size})=>(
+            <Icon name="sign-out" style={{fontSize:size,color:color}}/>
             
           ),
         }}
