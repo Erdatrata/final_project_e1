@@ -34,7 +34,7 @@ const Stack = createStackNavigator();
 const Tab=createBottomTabNavigator();
 const Drawer=createDrawerNavigator()
 
-
+//for tast
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
 //rata
