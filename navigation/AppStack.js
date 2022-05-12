@@ -21,6 +21,8 @@ import num_of_cum from '../screens/Number_customers';
 import menu from '../screens/MainTabScreen';
 import who_h from '../screens/who_h';
 import hookeh_fun from '../screens/Hookah_founction';
+import alcohol_fun from '../screens/Alcohol_fouction';
+import Food_function from '../screens/Food_function';
 import L_and_F from '../screens/Lost_and_found';
 import about_us from '../screens/A_us';
 const Stack = createStackNavigator();
@@ -165,6 +167,34 @@ const Menu_founction=({navigation}) => (
   component={hookeh_fun}
   options={{
     headerTitle: 'Menu hookah',
+    headerBackTitleVisible: false,
+    headerTitleAlign: 'center',
+    headerStyle: {
+      backgroundColor: '#fff',
+      shadowColor: '#fff',
+      elevation: 0,
+    },
+  }}
+/>
+<Stack.Screen
+  name="Alcohol"
+  component={alcohol_fun}
+  options={{
+    headerTitle: 'Menu Alcohol',
+    headerBackTitleVisible: false,
+    headerTitleAlign: 'center',
+    headerStyle: {
+      backgroundColor: '#fff',
+      shadowColor: '#fff',
+      elevation: 0,
+    },
+  }}
+/>
+<Stack.Screen
+  name="food"
+  component={Food_function}
+  options={{
+    headerTitle: 'Menu Alcohol',
     headerBackTitleVisible: false,
     headerTitleAlign: 'center',
     headerStyle: {

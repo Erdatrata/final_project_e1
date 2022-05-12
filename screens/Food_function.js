@@ -24,72 +24,7 @@ const MainTabScreen = ({navigation}) => {
   return (
     <ScrollView style={styles.container}>
       <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
-      <View style={styles.sliderContainer}>
-        <Swiper
-          autoplay
-          horizontal={false}
-          height={200}
-          activeDotColor="#FF6347">
-          <View style={styles.slide}>
-            <Image
-              source={require('../assets/banners/edamame-cooking.jpg')}
-              resizeMode="cover"
-              style={styles.sliderImage}
-            />
-          </View>
-          <View style={styles.slide}>
-            <Image
-              source={require('../assets/banners/מצרית-פרמיום-זהב.png')}
-              resizeMode="cover"
-              style={styles.sliderImage}
-            />
-          </View>
-          <View style={styles.slide}>
-            <Image
-              source={require('../assets/banners/0001239_-.jpg')}
-              resizeMode="cover"
-              style={styles.sliderImage}
-            />
-          </View>
-        </Swiper>
-      </View>
-
-      <View style={styles.categoryContainer}>
-        <TouchableOpacity
-          style={styles.categoryBtn}
-          onPress={() =>
-            navigation.navigate('hookah', {title: 'Restaurant'})
-          }>
-          <View style={styles.categoryIcon}>
-            <MaterialCommunityIcons name="fire" size={35} color="#FF6347" />
-          </View>
-          <Text style={styles.categoryBtnTxt}>hookah</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.categoryBtn}
-          onPress={() =>
-            navigation.navigate('Alcohol', {title: 'Fastfood Center'})
-          }>
-          <View style={styles.categoryIcon}>
-            <F_W_5
-              name="glass-martini"
-              size={35}
-              color="#FF6347"
-            />
-          </View>
-          <Text style={styles.categoryBtnTxt}>Alcohol</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.categoryBtn}    onPress={() =>
-            navigation.navigate('food', {title: 'Fastfood Center'})
-          } >
-          <View style={styles.categoryIcon}>
-            <MaterialCommunityIcons name="food" size={35} color="#FF6347" />
-          </View>
-          <Text style={styles.categoryBtnTxt}>Snacks Corner</Text>
-        </TouchableOpacity>
-      </View>
-
+    
 
       <View style={styles.cardsWrapper}>
         <Text
@@ -99,53 +34,53 @@ const MainTabScreen = ({navigation}) => {
             fontWeight: 'bold',
             color: '#333',
           }}>
-         Reviews about the place
+         Types of hookah
         </Text>
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
-              source={require('../assets/banners/food-banner2.jpg')}
+              source={require('../assets/banners/shutterstock_744320251-600x600.jpg')}
               resizeMode="cover"
               style={styles.cardImg}
             />
           </View>
           <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food </Text>
-            <StarRating ratings={4} reviews={99} />
+            <Text style={styles.cardTitle}>Fries</Text>
+            <StarRating ratings={3} reviews={8} />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place
+              צי'פס עשו מתפוח אדמה 
             </Text>
           </View>
         </View>
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
-              source={require('../assets/banners/food-banner3.jpg')}
+              source={require('../assets/banners/the-trio-burger.jpg')}
               resizeMode="cover"
               style={styles.cardImg}
             />
           </View>
           <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Alcohol </Text>
-            <StarRating ratings={4} reviews={99} />
+            <Text style={styles.cardTitle}>hamburger</Text>
+            <StarRating ratings={4} reviews={9} />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place
+              המבורגר עשוי מבקר 
             </Text>
           </View>
         </View>
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
-              source={require('../assets/banners/food-banner4.jpg')}
+              source={require('../assets/banners/edamame-cooking.jpg')}
               resizeMode="cover"
               style={styles.cardImg}
             />
           </View>
           <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing place</Text>
-            <StarRating ratings={4} reviews={99} />
+            <Text style={styles.cardTitle}>green soybeans</Text>
+            <StarRating ratings={4} reviews={9} />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place
+             אדממה מתוקן עם מלח ולימון
             </Text>
           </View>
         </View>
