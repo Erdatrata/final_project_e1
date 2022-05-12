@@ -14,10 +14,10 @@ const LoginScreen = ({navigation}) => {
      
       <View style={styles.container}>
         <Image 
-          source={require('../assets/rn-social-logo.png')}
+          source={require('../assets/users/278478744_3092187571111508_9118093390604905778_n.jpg')}
           style={styles.logo}
           />
-          <Text style={styles.text}>RN social App</Text>
+          <Text style={styles.text}>DNA BAR </Text>
         <FormInput
         labelValue={email}
         onChangeText={(userEmail) => setEmail(userEmail)}

@@ -81,11 +81,11 @@ return (
       contentContainerStyle={{justifyContent:'center',alignItems:'center'}}
       showsVerticalScrollIndicator={false}
       >
-      <Image style={styles.userImg} source={require('../assets/users/user-2.jpg')}
+      <Image style={styles.userImg} source={require('../assets/users/278478744_3092187571111508_9118093390604905778_n.jpg')}
       />
-      <Text style={styles.userName}>jenny Doe</Text>
+      <Text style={styles.userName}>DNA BAR</Text>
       <Text style={styles.aboutUser}>
-        yosi rata the king and this is test
+      
       </Text>
       <View style={styles.userBtnWrapper}>
           {route.params ? (
