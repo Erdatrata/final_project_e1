@@ -24,69 +24,7 @@ const MainTabScreen = ({navigation}) => {
   return (
     <ScrollView style={styles.container}>
       <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
-      <View style={styles.sliderContainer}>
-        <Swiper
-          autoplay
-          horizontal={false}
-          height={200}
-          activeDotColor="#FF6347">
-          <View style={styles.slide}>
-            <Image
-              source={require('../assets/banners/food-banner1.jpg')}
-              resizeMode="cover"
-              style={styles.sliderImage}
-            />
-          </View>
-          <View style={styles.slide}>
-            <Image
-              source={require('../assets/banners/food-banner2.jpg')}
-              resizeMode="cover"
-              style={styles.sliderImage}
-            />
-          </View>
-          <View style={styles.slide}>
-            <Image
-              source={require('../assets/banners/food-banner3.jpg')}
-              resizeMode="cover"
-              style={styles.sliderImage}
-            />
-          </View>
-        </Swiper>
-      </View>
-
-      <View style={styles.categoryContainer}>
-        <TouchableOpacity
-          style={styles.categoryBtn}
-          onPress={() =>
-            navigation.navigate('hookah', {title: 'Restaurant'})
-          }>
-          <View style={styles.categoryIcon}>
-            <MaterialCommunityIcons name="fire" size={35} color="#FF6347" />
-          </View>
-          <Text style={styles.categoryBtnTxt}>hookah</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.categoryBtn}
-          onPress={() =>
-            navigation.navigate('CardListScreen', {title: 'Fastfood Center'})
-          }>
-          <View style={styles.categoryIcon}>
-            <F_W_5
-              name="glass-martini"
-              size={35}
-              color="#FF6347"
-            />
-          </View>
-          <Text style={styles.categoryBtnTxt}>Alcohol</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.categoryBtn} onPress={() => {}}>
-          <View style={styles.categoryIcon}>
-            <MaterialCommunityIcons name="food" size={35} color="#FF6347" />
-          </View>
-          <Text style={styles.categoryBtnTxt}>Snacks Corner</Text>
-        </TouchableOpacity>
-      </View>
-
+    
 
       <View style={styles.cardsWrapper}>
         <Text
@@ -96,53 +34,53 @@ const MainTabScreen = ({navigation}) => {
             fontWeight: 'bold',
             color: '#333',
           }}>
-         Reviews about the place
+         Types of hookah
         </Text>
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
-              source={require('../assets/banners/food-banner2.jpg')}
+              source={require('../assets/banners/מצרית-פרמיום-זהב.png')}
               resizeMode="cover"
               style={styles.cardImg}
             />
           </View>
           <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4} reviews={99} />
+            <Text style={styles.cardTitle}>Egyptian hookah</Text>
+            <StarRating ratings={3} reviews={8} />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place
+              נרגילה מצרית יכלת שני ראשים
             </Text>
           </View>
         </View>
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
-              source={require('../assets/banners/food-banner3.jpg')}
+              source={require('../assets/banners/נרגילה-סורית-אדומה.png')}
               resizeMode="cover"
               style={styles.cardImg}
             />
           </View>
           <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4} reviews={99} />
+            <Text style={styles.cardTitle}>Syrian hookah</Text>
+            <StarRating ratings={4} reviews={9} />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place
+              נרגילה סורית אדומה יכלת שלוש ראשים
             </Text>
           </View>
         </View>
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
-              source={require('../assets/banners/food-banner4.jpg')}
+              source={require('../assets/banners/KORESS-K2-green.png')}
               resizeMode="cover"
               style={styles.cardImg}
             />
           </View>
           <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing Food Place</Text>
-            <StarRating ratings={4} reviews={99} />
+            <Text style={styles.cardTitle}>Russian hookah</Text>
+            <StarRating ratings={4} reviews={9} />
             <Text style={styles.cardDetails}>
-              Amazing description for this amazing place
+             נרגילה רוסית יכלת שני ראשים
             </Text>
           </View>
         </View>

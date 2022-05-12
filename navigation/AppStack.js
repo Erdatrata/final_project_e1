@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,6 +20,7 @@ import getin_function from '../screens/Getin_function';
 import num_of_cum from '../screens/Number_customers';
 import menu from '../screens/MainTabScreen';
 import who_h from '../screens/who_h';
+import hookeh_fun from '../screens/Hookah_founction';
 import L_and_F from '../screens/Lost_and_found';
 import about_us from '../screens/A_us';
 const Stack = createStackNavigator();
@@ -118,6 +120,7 @@ const ProfileStack = ({navigation}) => (
         headerShown: false,
       }}
     />
+
     <Stack.Screen
       name="EditProfile"
       component={EditProfileScreen}
@@ -132,6 +135,7 @@ const ProfileStack = ({navigation}) => (
         },
       }}
     />
+
   </Stack.Navigator>
 );
 const Getin_function = ({navigation}) => (
@@ -146,6 +150,31 @@ const Getin_function = ({navigation}) => (
  
 
   </Stack.Navigator>
+);
+const Menu_founction=({navigation}) => (
+  <Stack.Navigator>
+  <Stack.Screen
+    name="menu"
+    component={menu}
+    options={{
+      headerShown: false,
+    }}
+  />
+  <Stack.Screen
+  name="hookah"
+  component={hookeh_fun}
+  options={{
+    headerTitle: 'Menu hookah',
+    headerBackTitleVisible: false,
+    headerTitleAlign: 'center',
+    headerStyle: {
+      backgroundColor: '#fff',
+      shadowColor: '#fff',
+      elevation: 0,
+    },
+  }}
+/>
+</Stack.Navigator>
 );
 const AppStack = () => {
   const getTabBarVisibility = (route) => {
@@ -207,7 +236,7 @@ const AppStack = () => {
       />
       <Drawer.Screen
       name="Menu"
-      component={menu}
+      component={Menu_founction}
       options={{
         drawerIcon:({focused,color,size})=>(
             <Icon name="glass" style={{fontSize:size,color:color}}/>
@@ -227,11 +256,11 @@ const AppStack = () => {
       />
 
       <Drawer.Screen
-      name="Lost and Found"
+      name="free ride"
       component={ L_and_F}
       options={{
         drawerIcon:({focused,color,size})=>(
-            <Icon name="blind" style={{fontSize:size,color:color}}/>
+            <MaterialCommunityIcons name="car-back" style={{fontSize:size,color:color}}/>
             
           ),
         }}
