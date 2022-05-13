@@ -5,7 +5,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -29,7 +28,8 @@ import alcohol_fun from '../screens/Alcohol_fouction';
 import Food_function from '../screens/Food_function';
 import L_and_F from '../screens/Lost_and_found';
 import about_us from '../screens/A_us';
-import {L_o} from '../screens/LoginScreen'
+import {L_o} from '../screens/LoginScreen';
+import map_fun from '../screens/ExploreScreen';
 const Stack = createStackNavigator();
 const Tab=createBottomTabNavigator();
 const Drawer=createDrawerNavigator()
@@ -213,7 +213,17 @@ const Menu_founction=({navigation}) => (
 />
 </Stack.Navigator>
 );
-
+const Map_function = ({navigation}) => (
+  <Stack.Navigator>
+  <Stack.Screen
+    name="free ride_1"
+    component={map_fun}
+    options={{
+      headerShown: false,
+    }}
+  />
+  </Stack.Navigator>
+);
 const AppStack = () => {
   const {user, logout} = useContext(AuthContext);
 
@@ -303,7 +313,7 @@ const AppStack = () => {
 
       <Drawer.Screen
       name="free ride"
-      component={ L_and_F}
+      component={ Map_function}
       options={{
         drawerIcon:({focused,color,size})=>(
             <MaterialCommunityIcons name="car-back" style={{fontSize:size,color:color}}/>
@@ -313,7 +323,7 @@ const AppStack = () => {
       />
       <Drawer.Screen
       name="About us"
-      component={ about_us}
+      component={about_us}
       options={{
         drawerIcon:({focused,color,size})=>(
             <Icon name="handshake-o" style={{fontSize:size,color:color}}/>

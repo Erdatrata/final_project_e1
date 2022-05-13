@@ -15,7 +15,7 @@ import {
 
 
 
-const num_customers = ({navigation}) => {
+const A_us = ({navigation}) => {
     return (
         <View style={styles.text}>
         <TouchableOpacity onPress={() => Linking.openURL('https://get-in.com/he/')}>
@@ -28,7 +28,7 @@ const num_customers = ({navigation}) => {
     );
 };
 
-export default  num_customers;
+export default  A_us;
 
 const styles = StyleSheet.create({
   container: {
