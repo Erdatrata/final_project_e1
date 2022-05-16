@@ -12,15 +12,28 @@ import {
   MessageText,
   TextSection,
 } from '../styles/MessageStyles';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 
 const Getin_function = ({navigation}) => {
     return (
         <View style={styles.text}>
-        <TouchableOpacity onPress={() => Linking.openURL('https://get-in.com/he/')}>
         <Text style={styles.container}> להזמנת כרטיסים באמצעות אתר GETIN</Text>
-        <Text style={styles.input}>
+        <TouchableOpacity
+        style={{
+        borderWidth:1,
+        borderColor:'rgba(0,0,0,0.2)',
+        alignItems:'center',
+        justifyContent:'center',
+        width:100,
+        height:100,
+        backgroundColor:'#fff',
+        borderRadius:50,
+      }} onPress={() => Linking.openURL('https://get-in.com/he/')}
+      >
+        <MaterialCommunityIcons name={"chevron-left"}  size={30} color="#01a699" />
+        <Text >
           GETIN
         </Text>
       </TouchableOpacity>
@@ -45,6 +58,7 @@ const styles = StyleSheet.create({
   text:{
     backgroundColor: 'black',
     marginTop: 100,
+    width: '100%', 
   },
   input: {
     fontSize: 30,

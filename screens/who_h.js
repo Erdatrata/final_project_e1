@@ -43,8 +43,6 @@ const App = () => (
           onPress={() => Alert.alert('Right button pressed')}
         />
       </View>
-
-      
     </View>
   </SafeAreaView>
 );
