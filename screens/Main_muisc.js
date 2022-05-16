@@ -6,7 +6,7 @@ const muisc_function = () => {
   return (
     <View style={style.container}>
       <StatusBar barStyle="light-content" />
-      {/* <MusicPlayer /> */}
+      <MusicPlayer />
     </View>
   );
 };

@@ -328,7 +328,7 @@ const AppStack = () => {
       component={muisc_function}
       options={{
         drawerIcon:({focused,color,size})=>(
-            <Icon name="handshake-o" style={{fontSize:size,color:color}}/>
+            <Icon name="music" style={{fontSize:size,color:color}}/>
             
           ),
         }}
