@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, FlatList,Linking,TouchableOpacity , Alert } from 'react-native';
+import { View, Text, Button, StyleSheet, FlatList,Linking,TouchableOpacity , Alert, SafeAreaView,Image } from 'react-native';
 import {
   Container,
   Card,
@@ -14,47 +14,81 @@ import {
 } from '../styles/MessageStyles';
 
 
+const Separator = () => (
+  <View style={styles.separator} />
+);
 
-const A_us = ({navigation}) => {
-    return (
-        <View style={styles.text}>
-        <TouchableOpacity onPress={() => Linking.openURL('https://get-in.com/he/')}>
-        <Text style={styles.container}> להזמנת כרטיסים באמצעות אתר GETIN</Text>
-        <Text style={styles.input}>
-          GETIN
-        </Text>
-      </TouchableOpacity>
-      </View>
-    );
-};
+const App = () => (
+  
+  <SafeAreaView style={styles.container}>
+     <Image source={require('../assets/posts/Screenshot_20220516-141718_Facebook.jpg')} >
+    </Image>
+    <View>
 
-export default  A_us;
+      <Text style={styles.title_1}>
+        
+              מוזיקה:   
+           Danchall and Hip-HOP    
+           {"\n"}
+           {"\n"}
+           מקום:
+                            חומה ומגדל 11 תל אביב
+            {"\n"}
+           {"\n"}
+           גילאים:  
+            בנות: 21
+,
+            גברים : 26    
+      </Text>
+    </View>
+    <View>
+   
+
+    </View>
+   
+  </SafeAreaView>
+  
+);
 
 const styles = StyleSheet.create({
   container: {
-    fontFamily: 'Kufam-SemiBoldItalic',
-    fontSize: 28,
-    marginBottom: 10,
-    color: 'red',
-    marginTop: 100,
-    paddingLeft: 100,
-    paddingRight: 100,
-    width: '100%',
-
+    flex: 1,
+    justifyContent: 'center',
+    marginHorizontal:0 ,
+    backgroundColor:'black'
   },
-  text:{
-    backgroundColor: 'black',
-    marginTop: 100,
+  title_1: {
+    marginTop: -1000,
+   marginVertical: 8,
+   color: 'red',
+   fontWeight: 'bold',
+   fontSize: 18,
   },
-  input: {
-    fontSize: 30,
-    fontWeight: '100',
-    width: '90%',
-    color: '#2e64e5',
+  title_2: {
+    marginTop: -300,
+   marginVertical: 8,
+   fontSize: 18,
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#ffffff',
     fontFamily: 'Lato-Regular',
-    marginTop: 200,
-    paddingLeft: 150,
-    paddingRight: 100,
-    backgroundColor: '#cacaca',
   },
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: '#737373',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    fontFamily: 'Lato-Regular',
+    borderRadius: 3,
+    marginTop: 40,
+  }
+  
 });
+
+export default App;

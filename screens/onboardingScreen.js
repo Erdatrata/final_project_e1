@@ -22,7 +22,7 @@ const Skip=({...props})=>(
   style={{marginHorizontal:10}}
   {...props}
 >
-  <Text style={{fontSize:16}}>Skip</Text>
+  <Text style={styles.innerText}>Skip</Text>
 </TouchableOpacity>
 )
 const Next =({...props}) => (
@@ -30,14 +30,14 @@ const Next =({...props}) => (
   style={{marginHorizontal:10}}
   {...props}
 >
-  <Text style={{fontSize:16}}>Next</Text>
+  <Text style={styles.innerText}>Next</Text>
 </TouchableOpacity>
 )
 const Done =({...props}) => (
 <TouchableOpacity
   style ={{marginHorizontal:8}}
   {...props}>
-  <Text style={{fontSize:16}}>Done</Text>
+  <Text style={styles.innerText}>Done</Text>
 </TouchableOpacity>
 )
 
@@ -53,20 +53,20 @@ const onboardingScreen = ({navigation}) => {
       onDone={() => navigation.navigate("Login")}
       pages={[
         {
-          backgroundColor: '#a6e4d0',
-          image: <Image source={require('../assets/posts/post-img-2.jpg')} />,
+          backgroundColor: 'black',
+          image: <Image source={require('../assets/posts/Screenshot_20220516-141718_Facebook.jpg')} />,
           title: 'Onboarding 1',
           subtitle: 'Done with React Native Onboarding Swiper',
         },
         {
-          backgroundColor: '#fdeb93',
-          image: <Image source={require('../assets/posts/post-img-4.jpg')} />,
+          backgroundColor: 'black',
+          image: <Image source={require('../assets/posts/Screenshot_20220516-141743_Facebook.jpg')} />,
           title: 'Onboarding 2',
           subtitle: 'Done with React Native Onboarding Swiper',
         },
         {
-          backgroundColor: '#e9bcbe',
-          image: <Image source={require('../assets/posts/post-img-3.jpg')} />,
+          backgroundColor: 'black',
+          image: <Image source={require('../assets/posts/Screenshot_20220516-141752_Facebook.jpg')} />,
           title: 'Onboarding 3',
           subtitle: 'Done with React Native Onboarding Swiper',
         },
@@ -83,4 +83,8 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     justifyContent: 'center'
   },
+  innerText: {
+    color: 'red',
+    fontSize:16
+  }
 });
