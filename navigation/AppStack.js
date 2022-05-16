@@ -30,6 +30,7 @@ import L_and_F from '../screens/Lost_and_found';
 import about_us from '../screens/A_us';
 import {L_o} from '../screens/LoginScreen';
 import map_fun from '../screens/ExploreScreen';
+import muisc_function from '../screens/Main_muisc'
 const Stack = createStackNavigator();
 const Tab=createBottomTabNavigator();
 const Drawer=createDrawerNavigator()
@@ -224,6 +225,7 @@ const Map_function = ({navigation}) => (
   />
   </Stack.Navigator>
 );
+
 const AppStack = () => {
   const {user, logout} = useContext(AuthContext);
 
@@ -317,6 +319,16 @@ const AppStack = () => {
       options={{
         drawerIcon:({focused,color,size})=>(
             <MaterialCommunityIcons name="car-back" style={{fontSize:size,color:color}}/>
+            
+          ),
+        }}
+      />
+     <Drawer.Screen
+      name="Music"
+      component={muisc_function}
+      options={{
+        drawerIcon:({focused,color,size})=>(
+            <Icon name="handshake-o" style={{fontSize:size,color:color}}/>
             
           ),
         }}
