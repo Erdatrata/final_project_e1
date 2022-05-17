@@ -79,7 +79,7 @@ const Stories = (props) => {
       />
 
 
-      <FlatList
+      {/* <FlatList
         data={AllStories}
         ItemSeparatorComponent={renderSeperator}
         style={{ paddingHorizontal: 10 }}
@@ -93,7 +93,7 @@ const Stories = (props) => {
 
           </TouchableOpacity>
         )}
-      />
+      /> */}
 
 
       <Modal

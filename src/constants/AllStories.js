@@ -14,6 +14,20 @@ const stories = [
     ],
   },
   {
+    username: 'Amit',
+    title: 'Pune Dairies',
+    profile: 'https://avatars0.githubusercontent.com/u/16208872?s=460&v=4',
+    stories: [
+      {
+        id: 1,
+        url: 'https://images.unsplash.com/photo-1532579853048-ec5f8f15f88d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+        type: 'image',
+        duration: 2,
+        isReadMore: true,
+      },
+    ],
+  },
+  {
     username: 'Trinadh',
     profile: 'https://avatars2.githubusercontent.com/u/45196619?s=460&v=4',
     title: 'My Gallery',
