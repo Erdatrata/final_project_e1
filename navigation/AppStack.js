@@ -30,7 +30,8 @@ import L_and_F from '../screens/Lost_and_found';
 import about_us from '../screens/A_us';
 import {L_o} from '../screens/LoginScreen';
 import map_fun from '../screens/ExploreScreen';
-import muisc_function from '../screens/Main_muisc'
+import muisc_function from '../screens/Main_muisc';
+import store_function from '../screens/Main_store';
 const Stack = createStackNavigator();
 const Tab=createBottomTabNavigator();
 const Drawer=createDrawerNavigator()
@@ -333,6 +334,16 @@ const AppStack = () => {
           ),
         }}
       />
+      <Drawer.Screen
+        name="store"
+        component={store_function}
+        options={{
+          drawerIcon:({focused,color,size})=>(
+              <MaterialCommunityIcons name="storefront" style={{fontSize:size,color:color}}/>
+              
+            ),
+          }}
+        />
       <Drawer.Screen
       name="About us"
       component={about_us}
