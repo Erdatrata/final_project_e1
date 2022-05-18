@@ -9,8 +9,6 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-
-
 import {AuthContext} from '../navigation/AuthProvider';
 import HomeScreen from '../screens/HomeScreen';
 import ChatScreen from '../screens/ChatScreen';
@@ -56,17 +54,17 @@ const FeedStack = ({navigation}) => (
           shadowColor: '#fff',
           elevation: 0,
         },
-        headerRight: () => (
-          <View style={{marginRight: 10}}>
-            <FontAwesome5.Button
-              name="plus"
-              size={22}
-              backgroundColor="#fff"
-              color="#2e64e5"
-              onPress={() => navigation.navigate('AddPost')}
-            />
-          </View>
-        ),
+        // headerRight: () => (
+        //   <View style={{marginRight: 10}}>
+        //     <FontAwesome5.Button
+        //       name="plus"
+        //       size={22}
+        //       backgroundColor="#fff"
+        //       color="#2e64e5"
+        //       onPress={() => navigation.navigate('AddPost')}
+        //     />
+        //   </View>
+        // ),
       }}
     />
         <Stack.Screen
@@ -354,6 +352,16 @@ const AppStack = () => {
           ),
         }}
       />
+      <Drawer.Screen
+      name="AddPost"
+      component={AddPostScreen}
+      options={{
+        drawerIcon:({focused,color,size})=>(   <MaterialCommunityIcons name="camera" style={{fontSize:size,color:color} }/>   ),
+            
+        }
+      }
+      
+      />
     <Drawer.Screen
       name="Log Out"
       component={ Log_out}
@@ -482,4 +490,8 @@ const styles = StyleSheet.create({
     color: '#666',
     textAlign: 'center',
   },
+  bottomContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+}
 });
