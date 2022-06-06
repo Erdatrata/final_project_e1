@@ -30,8 +30,42 @@ import storage from '@react-native-firebase/storage';
 
 const {width, height} = Dimensions.get('window');
 
+const fetchProfilePicturesRequest = async () => {
+  console.log("1")
+  const reference = await storage()
+  .ref(`files`)
+  .listAll();
+  
+  var imageHolder = [];
+  
+  for(let i=0;i<reference.items.length;i++){
+     await reference.items[i].getDownloadURL().then((urlValues) => {
+        imageHolder.push(urlValues);
+     });
+  }
 
+  return imageHolder;
+  };
+  const setupsong = async () => {
+    console.log("2")
+    const songs_1=await fetchProfilePicturesRequest();
+    const arr_song=[]
+    for(var i=0; i< songs_1.length;i++){
+      const t= {
+        id: i,
+        title: '19th Floor',
+        artist: 'trak'+i,
+        artwork: require('../assets/img/img1.jpg'),
+        url:songs_1[i],
+      }
+      arr_song.push(t)
+    }
+  return arr_song
+    
+  }
+window.myvar=setupsong()
 const MusicPlayer = () => {
+
 
   // console.log("-----songs-----",songs.data_url())
   // console.log("-----songs_1-----",songs.data_url_2())
@@ -39,7 +73,7 @@ const MusicPlayer = () => {
   const progress = useProgress();
   //   custom states
   const [posts, setPosts] = useState(null);
-  const [elems, setElems] = useState([]);
+
   const [songIndex, setsongIndex] = useState(0);
   const [repeatMode, setRepeatMode] = useState('off');
   const [trackTitle, setTrackTitle] = useState();
@@ -47,86 +81,57 @@ const MusicPlayer = () => {
   const [trackArtwork, setTrackArtwork] = useState();
   // custom referecnces
   // const [refreshing, setRefreshing] = React.useState(false);
-
+  
   const scrollX = useRef(new Animated.Value(0)).current;
   const songSlider = useRef(null);
-  const songs = [
-    {
-      id: 1,
-      title: '19th Floor',
-      artist: 'Bobby Richards',
-      artwork: require('../assets/img/img1.jpg'),
-      url: 'https://firebasestorage.googleapis.com/v0/b/spotify-clone-7a2ef.appspot.com/o/Ringtone%2FAudio%2F19th%20Floor%20-%20Bobby%20Richards.mp3?alt=media&token=4fe09d01-c064-440e-9fa7-e02005ebd79f',
-    },
-    {
-      id: 2,
-      title: 'Awful',
-      artist: 'josh pan',
-      artwork: require('../assets/img/img2.jpg'),
-      url: 'https://firebasestorage.googleapis.com/v0/b/spotify-clone-7a2ef.appspot.com/o/Ringtone%2FAudio%2FAwful%20-%20josh%20pan.mp3?alt=media&token=5b174d4c-be09-417c-9fb8-b384f3ce0ec2',
-    },
-    {
-      id: 3,
-      title: 'Something is Going On',
-      artist: 'Godmode',
-      artwork: require('../assets/img/img3.jpg'),
-      url: 'https://firebasestorage.googleapis.com/v0/b/spotify-clone-7a2ef.appspot.com/o/Ringtone%2FAudio%2FSomething%20is%20Going%20On%20-%20Godmode.mp3?alt=media&token=ecf0d5c5-bc93-48c3-9046-077638d12cfd',
-    },
-    {
-      id: 4,
-      title: 'Book The Rental Wit It',
-      artist: 'RAGE',
-      artwork: require('../assets/img/img4.jpg'),
-      url: 'https://firebasestorage.googleapis.com/v0/b/spotify-clone-7a2ef.appspot.com/o/Ringtone%2FAudio%2FBook%20The%20Rental%20Wit%20It%20-%20RAGE.mp3?alt=media&token=6f76a691-fd9c-4057-ac0a-0e39104e865e',
-    },
-    {
-      id: 5,
-      title: 'Crimson Fly',
-      artist: 'Huma-Huma',
-      artwork: require('../assets/img/img5.jpg'),
-      url: 'https://firebasestorage.googleapis.com/v0/b/spotify-clone-7a2ef.appspot.com/o/Ringtone%2FAudio%2FCrimson%20Fly%20-%20Huma-Huma.mp3?alt=media&token=b2d30b27-286e-4d7d-82ad-1bdfa76a4058',
-    },
-  ];
+  // const songs = [
+  //   {
+  //     id: 1,
+  //     title: '19th Floor',
+  //     artist: 'Bobby Richards',
+  //     artwork: require('../assets/img/img1.jpg'),
+  //     url: 'https://firebasestorage.googleapis.com/v0/b/spotify-clone-7a2ef.appspot.com/o/Ringtone%2FAudio%2F19th%20Floor%20-%20Bobby%20Richards.mp3?alt=media&token=4fe09d01-c064-440e-9fa7-e02005ebd79f',
+  //   },
+  //   {
+  //     id: 2,
+  //     title: 'Awful',
+  //     artist: 'josh pan',
+  //     artwork: require('../assets/img/img2.jpg'),
+  //     url: 'https://firebasestorage.googleapis.com/v0/b/spotify-clone-7a2ef.appspot.com/o/Ringtone%2FAudio%2FAwful%20-%20josh%20pan.mp3?alt=media&token=5b174d4c-be09-417c-9fb8-b384f3ce0ec2',
+  //   },
+  //   {
+  //     id: 3,
+  //     title: 'Something is Going On',
+  //     artist: 'Godmode',
+  //     artwork: require('../assets/img/img3.jpg'),
+  //     url: 'https://firebasestorage.googleapis.com/v0/b/spotify-clone-7a2ef.appspot.com/o/Ringtone%2FAudio%2FSomething%20is%20Going%20On%20-%20Godmode.mp3?alt=media&token=ecf0d5c5-bc93-48c3-9046-077638d12cfd',
+  //   },
+  //   {
+  //     id: 4,
+  //     title: 'Book The Rental Wit It',
+  //     artist: 'RAGE',
+  //     artwork: require('../assets/img/img4.jpg'),
+  //     url: 'https://firebasestorage.googleapis.com/v0/b/spotify-clone-7a2ef.appspot.com/o/Ringtone%2FAudio%2FBook%20The%20Rental%20Wit%20It%20-%20RAGE.mp3?alt=media&token=6f76a691-fd9c-4057-ac0a-0e39104e865e',
+  //   },
+  //   {
+  //     id: 5,
+  //     title: 'Crimson Fly',
+  //     artist: 'Huma-Huma',
+  //     artwork: require('../assets/img/img5.jpg'),
+  //     url: 'https://firebasestorage.googleapis.com/v0/b/spotify-clone-7a2ef.appspot.com/o/Ringtone%2FAudio%2FCrimson%20Fly%20-%20Huma-Huma.mp3?alt=media&token=b2d30b27-286e-4d7d-82ad-1bdfa76a4058',
+  //   },
+  // ];
+  const songs=window.myvar._W
+ 
   const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds))
   }
 
+ 
 
  
- const fetchProfilePicturesRequest = async () => {
-    const reference = await storage()
-    .ref(`files`)
-    .listAll();
-    
-    var imageHolder = [];
-    
-    for(let i=0;i<reference.items.length;i++){
-       await reference.items[i].getDownloadURL().then((urlValues) => {
-          imageHolder.push(urlValues);
-       });
-    }
-  
-    return imageHolder;
-    };
-    const setupsong = async () => {
-      const songs_1=await fetchProfilePicturesRequest();
-      const arr_song=[]
-      for(var i=0; i< songs_1.length;i++){
-        const t= {
-          id: i,
-          title: '19th Floor',
-          artist: 'trak'+i,
-          artwork: require('../assets/img/img1.jpg'),
-          url:songs_1[i],
-        }
-        arr_song.push(t)
-      }
-  
-      setElems(arr_song)
-      
-    }
   const setupPlayer = async () => {
-
+console.log("1")
     try {
       await TrackPlayer.setupPlayer();
       await TrackPlayer.updateOptions({
@@ -138,13 +143,14 @@ const MusicPlayer = () => {
           Capability.Stop,
         ],
       });
-      await TrackPlayer.add(elems);
+      await TrackPlayer.add(songs);
     } catch (error) {
       console.log("rata=",error);
     }
   };
   
   const togglePlayBack = async playBackState => {
+    console.log("2")
     const currentTrack = await TrackPlayer.getCurrentTrack();
     console.log(currentTrack, playBackState, State.Playing);
     if (currentTrack != null) {
@@ -158,6 +164,7 @@ const MusicPlayer = () => {
   
  
   useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
+    console.log("3")
     if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== null) {
       const track = await TrackPlayer.getTrack(event.nextTrack);
       const {title, artwork, artist} = track;
@@ -168,6 +175,7 @@ const MusicPlayer = () => {
   });
 
   const repeatIcon = () => {
+    console.log("4")
     if (repeatMode == 'off') {
       return 'repeat-off';
     }
@@ -182,6 +190,7 @@ const MusicPlayer = () => {
   };
 
   const changeRepeatMode = () => {
+    console.log("5")
     if (repeatMode == 'off') {
       TrackPlayer.setRepeatMode(RepeatMode.Track);
       setRepeatMode('track');
@@ -199,19 +208,18 @@ const MusicPlayer = () => {
   };
 
   const skipTo = async trackId => {
+    console.log("6")
     await TrackPlayer.skip(trackId);
   };
 
   useEffect(() => {
- 
-    console.log("sogs=",elems)
-    setupsong();
     setupPlayer();
 
     scrollX.addListener(({value}) => {
       //   console.log(`ScrollX : ${value} | Device Width : ${width} `);
 
       const index = Math.round(value / width);
+      console.log("index=",index)
       skipTo(index);
       setsongIndex(index);
 
@@ -225,12 +233,14 @@ const MusicPlayer = () => {
   }, []);
 
   const skipToNext = () => {
+    console.log("7.5")
     songSlider.current.scrollToOffset({
       offset: (songIndex + 1) * width,
     });
   };
 
   const skipToPrevious = () => {
+    console.log("7")
     songSlider.current.scrollToOffset({
       offset: (songIndex - 1) * width,
     });
@@ -238,7 +248,7 @@ const MusicPlayer = () => {
 
 
   const renderSongs = ({item, index}) => {
-    
+    console.log("8")
     return (
       <Animated.View style={style.mainWrapper}>
         <View style={[style.imageWrapper, style.elevation]}>
@@ -271,7 +281,7 @@ const MusicPlayer = () => {
         <Animated.FlatList
           ref={songSlider}
           renderItem={renderSongs}
-          data={elems}
+          data={songs}
           keyExtractor={item => item.id}
           horizontal
           pagingEnabled

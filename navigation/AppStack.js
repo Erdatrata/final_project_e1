@@ -9,7 +9,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {AuthContext} from '../navigation/AuthProvider';
+import {AuthContext} from './AuthProvider';
 import HomeScreen from '../screens/HomeScreen';
 import ChatScreen from '../screens/ChatScreen';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -26,14 +26,14 @@ import alcohol_fun from '../screens/Alcohol_fouction';
 import Food_function from '../screens/Food_function';
 import L_and_F from '../screens/Lost_and_found';
 import about_us from '../screens/A_us';
-import {L_o} from '../screens/LoginScreen';
+import Log_Out from '../screens/Logout_page';
 import map_fun from '../screens/ExploreScreen';
 import muisc_function from '../screens/Main_muisc';
 import store_function from '../screens/Main_store';
+
 const Stack = createStackNavigator();
 const Tab=createBottomTabNavigator();
 const Drawer=createDrawerNavigator()
-
 //for tast
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
@@ -54,17 +54,17 @@ const FeedStack = ({navigation}) => (
           shadowColor: '#fff',
           elevation: 0,
         },
-        // headerRight: () => (
-        //   <View style={{marginRight: 10}}>
-        //     <FontAwesome5.Button
-        //       name="plus"
-        //       size={22}
-        //       backgroundColor="#fff"
-        //       color="#2e64e5"
-        //       onPress={() => navigation.navigate('AddPost')}
-        //     />
-        //   </View>
-        // ),
+        headerRight: () => (
+          <View style={{marginRight: 10}}>
+            <FontAwesome5.Button
+              name="plus"
+              size={22}
+              backgroundColor="#fff"
+              color="#2e64e5"
+              onPress={() => navigation.navigate('AddPost')}
+            />
+          </View>
+        ),
       }}
     />
         <Stack.Screen
@@ -227,14 +227,6 @@ const Map_function = ({navigation}) => (
 
 const AppStack = () => {
   const {user, logout} = useContext(AuthContext);
-
-  const Log_out = ({navigation}) => {
-    <TouchableOpacity style={styles.userBtn} onPress={() => logout()}>
-    <Text style={styles.userBtnTxt}>Logout</Text>
-  </TouchableOpacity>
-
-   return null;
-  };
   const getTabBarVisibility = (route) => {
     const routeName = route.state
       ? route.state.routes[route.state.index].name
@@ -352,19 +344,9 @@ const AppStack = () => {
           ),
         }}
       />
-      <Drawer.Screen
-      name="AddPost"
-      component={AddPostScreen}
-      options={{
-        drawerIcon:({focused,color,size})=>(   <MaterialCommunityIcons name="camera" style={{fontSize:size,color:color} }/>   ),
-            
-        }
-      }
-      
-      />
     <Drawer.Screen
-      name="Log Out"
-      component={ Log_out}
+      name="Log_Out"
+      component={Log_Out}
       options={{
         drawerIcon:({focused,color,size})=>(
             <Icon name="sign-out" style={{fontSize:size,color:color}}/>
