@@ -8,6 +8,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import onboardingScreen from '../screens/onboardingScreen'
 import LoginScreen from '../screens/LoginScreen'
 import SignupScreen from "../screens/SignupScreen";
+import rest_pass from '../screens/Forgat_password';
 import { View } from "react-native";
 // create a "stack"
 
@@ -26,6 +27,52 @@ const AuthStack = ()=>{
       name="Login"
       component={LoginScreen}
       options={{header: () => null}}
+    />
+       <Stack.Screen
+      name="rest_password"
+      component={rest_pass}
+      options={({navigation}) => ({
+        title: '',
+        headerStyle: {
+          backgroundColor: '#f9fafd',
+          shadowColor: '#f9fafd',
+          elevation: 0,
+        },
+        headerLeft: () => (
+          <View style={{marginLeft: 10}}>
+            <FontAwesome.Button 
+              name="long-arrow-left"
+              size={25}
+              backgroundColor="#f9fafd"
+              color="#333"
+              onPress={() => navigation.navigate('Login')}
+            />
+          </View>
+        ),
+      })}
+    />
+      <Stack.Screen
+      name="rest_password"
+      component={rest_pass}
+      options={({navigation}) => ({
+        title: '',
+        headerStyle: {
+          backgroundColor: '#f9fafd',
+          shadowColor: '#f9fafd',
+          elevation: 0,
+        },
+        headerLeft: () => (
+          <View style={{marginLeft: 10}}>
+            <FontAwesome.Button 
+              name="long-arrow-left"
+              size={25}
+              backgroundColor="#f9fafd"
+              color="#333"
+              onPress={() => navigation.navigate('Login')}
+            />
+          </View>
+        ),
+      })}
     />
     <Stack.Screen
       name="Signup"
@@ -55,3 +102,4 @@ const AuthStack = ()=>{
    );
 }
 export default AuthStack;
+// import com.facebook.react.BuildConfig;
