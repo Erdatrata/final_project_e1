@@ -11,6 +11,7 @@ const SignupScreen = ({navigation}) => {
   const [password, setPassword] = useState();
   const [confirmpassword, setconfirmpassword] = useState();
   const {register} = useContext(AuthContext);
+ 
     return (
      
       <View style={styles.container}>
@@ -35,7 +36,7 @@ const SignupScreen = ({navigation}) => {
       />
         <FormInput
         labelValue={confirmpassword}
-        onChangeText={(userPassword) => setPassword(userPassword)}
+        onChangeText={(userPassword) => setconfirmpassword(userPassword)}
         placeholderText="confirm password"
         iconType="lock"
         secureTextEntry={true}
@@ -43,7 +44,7 @@ const SignupScreen = ({navigation}) => {
 
       <FormButton
         buttonTitle="Sign Up"
-        onPress={() => register(email, password)}
+        onPress={() => register(email, password,confirmpassword)}
       />
          <View style={styles.textPrivate}>
         <Text style={styles.color_textPrivate}>
