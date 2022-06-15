@@ -21,7 +21,7 @@ import firestore from '@react-native-firebase/firestore';
 import {Container} from '../styles/FeedStyles';
 import PostCard_food from '../components/PostCard_food';
 
-const alcohol_order = ({navigation}) => {
+const hook_order = ({navigation}) => {
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
@@ -32,7 +32,7 @@ const alcohol_order = ({navigation}) => {
       const list = [];
 
       await firestore()
-        .collection('alcohol')
+        .collection('hook')
         .orderBy('postTime', 'desc')
         .get()
         .then((querySnapshot) => {
@@ -115,7 +115,7 @@ const alcohol_order = ({navigation}) => {
     console.log('Current Post Id: ', postId);
 
     firestore()
-      .collection('alcohol')
+      .collection('hook')
       .doc(postId)
       .get()
       .then((documentSnapshot) => {
@@ -145,7 +145,7 @@ const alcohol_order = ({navigation}) => {
 
   const deleteFirestoreData = (postId) => {
     firestore()
-      .collection('alcohol')
+      .collection('hook')
       .doc(postId)
       .delete()
       .then(() => {
@@ -217,7 +217,7 @@ const alcohol_order = ({navigation}) => {
                 item={item}
                 onDelete={handleDelete}
                 onPress={() =>
-                  navigation.navigate('alcohol_order', {userId: item.userId})
+                  navigation.navigate('hook_order', {userId: item.userId})
                 }
               />
             )}
@@ -239,5 +239,5 @@ const alcohol_order = ({navigation}) => {
 
 };
 
-export default  alcohol_order;
+export default hook_order;
 

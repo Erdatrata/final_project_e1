@@ -1,192 +1,243 @@
-import React from 'react';
+import React, {useEffect, useState,} from 'react';
 import {
   View,
-  Text,
-  Image,
-  StyleSheet,
-  StatusBar,
-  TouchableOpacity,
   ScrollView,
+  Text,
+  StyleSheet,
+  FlatList,
+  SafeAreaView,
+  Alert,
+  RefreshControl, 
+ 
 } from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
-import Swiper from 'react-native-swiper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import F_W_5 from 'react-native-vector-icons/FontAwesome5'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import StarRating from '../components/StarRating';
 
-const MainTabScreen = ({navigation}) => {
-  const theme = useTheme();
 
+import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
+
+import {Container} from '../styles/FeedStyles';
+import PostCard_food from '../components/PostCard_food';
+
+const food_order = ({navigation}) => {
+  const [posts, setPosts] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [deleted, setDeleted] = useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const fetchPosts = async () => {
+    try {
+      const list = [];
+
+      await firestore()
+        .collection('food')
+        .orderBy('postTime', 'desc')
+        .get()
+        .then((querySnapshot) => {
+          // console.log('Total Posts: ', querySnapshot.size);
+
+          querySnapshot.forEach((doc) => {
+            const {
+              userId,
+              post,
+              postImg,
+              postTime,
+              likes,
+              comments,
+            } = doc.data();
+            list.push({
+              id: doc.id,
+              userId,
+              userName: 'hook',
+              userImg:
+                '',
+              postTime: postTime,
+              post,
+              postImg,
+              liked: false,
+              likes,
+              comments,
+            });
+          });
+        });
+
+      setPosts(list);
+
+      if (loading) {
+        setLoading(false);
+      }
+
+      console.log('food_order: ', posts);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+  const onRefresh = React.useCallback(() => {
+    fetchPosts();
+    wait(2000).then(() =>  setDeleted(false));
+  }, []);
+ 
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+
+  useEffect(() => {
+    fetchPosts();
+    setDeleted(false);
+  }, [deleted]);
+
+  const handleDelete = async(postId) => {
+    Alert.alert(
+      'Delete post',
+      'Are you sure?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed!'),
+          style: 'cancel',
+        },
+        {
+          text: 'Confirm',
+          onPress: () => deletePost(postId),
+        },
+      ],
+      {cancelable: false},
+    );
+  };
+
+  const deletePost = (postId) => {
+    console.log('Current Post Id: ', postId);
+
+    firestore()
+      .collection('food')
+      .doc(postId)
+      .get()
+      .then((documentSnapshot) => {
+        if (documentSnapshot.exists) {
+          const {postImg} = documentSnapshot.data();
+
+          if (postImg != null) {
+            const storageRef = storage().refFromURL(postImg);
+            const imageRef = storage().ref(storageRef.fullPath);
+
+            imageRef
+              .delete()
+              .then(() => {
+                console.log(`${postImg} has been deleted successfully.`);
+                deleteFirestoreData(postId);
+              })
+              .catch((e) => {
+                console.log('Error while deleting the image. ', e);
+              });
+            // If the post image is not available
+          } else {
+            deleteFirestoreData(postId);
+          }
+        }
+      });
+  };
+
+  const deleteFirestoreData = (postId) => {
+    firestore()
+      .collection('food')
+      .doc(postId)
+      .delete()
+      .then(() => {
+        Alert.alert(
+          'Post deleted!',
+          'Your post has been deleted successfully!',
+        );
+        setDeleted(true);
+      })
+      .catch((e) => console.log('Error deleting posst.', e));
+  };
+
+  const ListHeader = () => {
+    return null;
+  };
   return (
-    <ScrollView style={styles.container}>
-      <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
-    
-
-      <View style={styles.cardsWrapper}>
-        <Text
-          style={{
-            alignSelf: 'center',
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: '#333',
-          }}>
-         Types of hookah
-        </Text>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/banners/shutterstock_744320251-600x600.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Fries</Text>
-            <StarRating ratings={3} reviews={8} />
-            <Text style={styles.cardDetails}>
-              צי'פס עשו מתפוח אדמה 
-            </Text>
-          </View>
-        </View>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/banners/the-trio-burger.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>hamburger</Text>
-            <StarRating ratings={4} reviews={9} />
-            <Text style={styles.cardDetails}>
-              המבורגר עשוי מבקר 
-            </Text>
-          </View>
-        </View>
-        <View style={styles.card}>
-          <View style={styles.cardImgWrapper}>
-            <Image
-              source={require('../assets/banners/edamame-cooking.jpg')}
-              resizeMode="cover"
-              style={styles.cardImg}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>green soybeans</Text>
-            <StarRating ratings={4} reviews={9} />
-            <Text style={styles.cardDetails}>
-             אדממה מתוקן עם מלח ולימון
-            </Text>
-          </View>
-        </View>
-      </View>
-    </ScrollView>
+    <SafeAreaView style={{flex: 1}}>
+      {loading ? (
+        <ScrollView
+          style={{flex: 1}}
+          contentContainerStyle={{alignItems: 'center'}}>
+          <SkeletonPlaceholder>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{width: 60, height: 60, borderRadius: 50}} />
+              <View style={{marginLeft: 20}}>
+                <View style={{width: 120, height: 20, borderRadius: 4}} />
+                <View
+                  style={{marginTop: 6, width: 80, height: 20, borderRadius: 4}}
+                />
+              </View>
+            </View>
+            <View style={{marginTop: 10, marginBottom: 30}}>
+              <View style={{width: 300, height: 20, borderRadius: 4}} />
+              <View
+                style={{marginTop: 6, width: 250, height: 20, borderRadius: 4}}
+              />
+              <View
+                style={{marginTop: 6, width: 350, height: 200, borderRadius: 4}}
+              />
+            </View>
+          </SkeletonPlaceholder>
+          <SkeletonPlaceholder>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{width: 60, height: 60, borderRadius: 50}} />
+              <View style={{marginLeft: 20}}>
+                <View style={{width: 120, height: 20, borderRadius: 4}} />
+                <View
+                  style={{marginTop: 6, width: 80, height: 20, borderRadius: 4}}
+                />
+              </View>
+            </View>
+            <View style={{marginTop: 10, marginBottom: 30}}>
+              <View style={{width: 300, height: 20, borderRadius: 4}} />
+              <View
+                style={{marginTop: 6, width: 250, height: 20, borderRadius: 4}}
+              />
+              <View
+                style={{marginTop: 6, width: 350, height: 200, borderRadius: 4}}
+              />
+            </View>
+          </SkeletonPlaceholder>
+        </ScrollView>
+      ) : (
+        <Container>
+          <FlatList
+            data={posts}
+            renderItem={({item}) => (
+              <PostCard_food
+                item={item}
+                onDelete={handleDelete}
+                onPress={() =>
+                  navigation.navigate('food_order', {userId: item.userId})
+                }
+              />
+            )}
+            keyExtractor={(item) => item.id}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+              />
+            }
+            ListHeaderComponent={ListHeader}
+            showsVerticalScrollIndicator={false}
+          />
+        </Container>
+      )}
+   
+    </SafeAreaView>
   );
+
 };
 
-export default MainTabScreen;
+export default  food_order;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  sliderContainer: {
-    height: 200,
-    width: '90%',
-    marginTop: 10,
-    justifyContent: 'center',
-    alignSelf: 'center',
-    borderRadius: 8,
-  },
-
-  wrapper: {},
-
-  slide: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
-    borderRadius: 8,
-  },
-  sliderImage: {
-    height: '100%',
-    width: '100%',
-    alignSelf: 'center',
-    borderRadius: 8,
-  },
-  categoryContainer: {
-    flexDirection: 'row',
-    width: '90%',
-    alignSelf: 'center',
-    marginTop: 25,
-    marginBottom: 10,
-  },
-  categoryBtn: {
-    flex: 1,
-    width: '30%',
-    marginHorizontal: 0,
-    alignSelf: 'center',
-  },
-  categoryIcon: {
-    borderWidth: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    width: 70,
-    height: 70,
-    backgroundColor: '#fdeae7' /* '#FF6347' */,
-    borderRadius: 50,
-  },
-  categoryBtnTxt: {
-    alignSelf: 'center',
-    marginTop: 5,
-    color: '#de4f35',
-  },
-  cardsWrapper: {
-    marginTop: 20,
-    width: '90%',
-    alignSelf: 'center',
-  },
-  card: {
-    height: 100,
-    marginVertical: 10,
-    flexDirection: 'row',
-    shadowColor: '#999',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
-  },
-  cardImgWrapper: {
-    flex: 1,
-  },
-  cardImg: {
-    height: '100%',
-    width: '100%',
-    alignSelf: 'center',
-    borderRadius: 8,
-    borderBottomRightRadius: 0,
-    borderTopRightRadius: 0,
-  },
-  cardInfo: {
-    flex: 2,
-    padding: 10,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderLeftWidth: 0,
-    borderBottomRightRadius: 8,
-    borderTopRightRadius: 8,
-    backgroundColor: '#fff',
-  },
-  cardTitle: {
-    fontWeight: 'bold',
-  },
-  cardDetails: {
-    fontSize: 12,
-    color: '#444',
-  },
-});

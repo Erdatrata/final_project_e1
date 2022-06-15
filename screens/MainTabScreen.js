@@ -104,7 +104,7 @@ const MainTabScreen = ({navigation}) => {
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
-              source={require('../assets/banners/food-banner2.jpg')}
+              source={require('../assets/banners/food-banner5.jpg')}
               resizeMode="cover"
               style={styles.cardImg}
             />
@@ -120,7 +120,7 @@ const MainTabScreen = ({navigation}) => {
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
-              source={require('../assets/banners/food-banner3.jpg')}
+              source={require('../assets/banners/0001239_-.jpg')}
               resizeMode="cover"
               style={styles.cardImg}
             />
@@ -136,13 +136,13 @@ const MainTabScreen = ({navigation}) => {
         <View style={styles.card}>
           <View style={styles.cardImgWrapper}>
             <Image
-              source={require('../assets/banners/food-banner4.jpg')}
+              source={require('../assets/banners/KORESS-K2-green.png')}
               resizeMode="cover"
               style={styles.cardImg}
             />
           </View>
           <View style={styles.cardInfo}>
-            <Text style={styles.cardTitle}>Amazing place</Text>
+            <Text style={styles.cardTitle}>Amazing hook</Text>
             <StarRating ratings={4} reviews={99} />
             <Text style={styles.cardDetails}>
               Amazing description for this amazing place

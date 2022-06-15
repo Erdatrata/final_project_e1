@@ -14,6 +14,9 @@ import HomeScreen from '../screens/HomeScreen';
 import ChatScreen from '../screens/ChatScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import AddPostScreen from '../screens/AddPostScreen';
+import Add_hook_post from '../screens/Add_hook_post';
+import add_alcohol from '../screens/add_alcohol_post';
+import add_food_post from '../screens/add_food_post';
 import MessagesScreen from '../screens/MessagesScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import DrawerContent from '../screens/DrawerContent';
@@ -21,7 +24,7 @@ import getin_function from '../screens/Getin_function';
 import num_of_cum from '../screens/Number_customers';
 import menu from '../screens/MainTabScreen';
 import who_h from '../screens/who_h';
-import hookeh_fun from '../screens/Hookah_founction';
+import hookeh_fun from '../screens/hook_order';
 import alcohol_fun from '../screens/Alcohol_fouction';
 import Food_function from '../screens/Food_function';
 import L_and_F from '../screens/Lost_and_found';
@@ -30,7 +33,6 @@ import Log_Out from '../screens/Logout_page';
 import map_fun from '../screens/ExploreScreen';
 import muisc_function from '../screens/Main_muisc';
 import store_function from '../screens/Main_store';
-
 const Stack = createStackNavigator();
 const Tab=createBottomTabNavigator();
 const Drawer=createDrawerNavigator()
@@ -181,9 +183,43 @@ const Menu_founction=({navigation}) => (
       shadowColor: '#fff',
       elevation: 0,
     },
+    headerRight: () => (
+      <View style={{marginRight: 10}}>
+        <FontAwesome5.Button
+          name="plus"
+          size={22}
+          backgroundColor="#fff"
+          color="#2e64e5"
+          onPress={() => navigation.navigate('Add_hook_post')}
+        />
+      </View>
+    ),
   }}
 />
 <Stack.Screen
+      name="Add_hook_post"
+      component={Add_hook_post}
+      options={{
+        title: '',
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: '#2e64e515',
+          shadowColor: '#2e64e515',
+          elevation: 0,
+        },
+        headerBackTitleVisible: false,
+        headerBackImage: () => (
+          <View style={{marginLeft: 15}}>
+            <Ionicons name="arrow-back" size={25} color="#2e64e5" />
+          </View>
+        ),
+      }}
+    />
+  
+
+
+
+ <Stack.Screen
   name="Alcohol"
   component={alcohol_fun}
   options={{
@@ -195,8 +231,41 @@ const Menu_founction=({navigation}) => (
       shadowColor: '#fff',
       elevation: 0,
     },
+    headerRight: () => (
+      <View style={{marginRight: 10}}>
+        <FontAwesome5.Button
+          name="plus"
+          size={22}
+          backgroundColor="#fff"
+          color="#2e64e5"
+          onPress={() => navigation.navigate('add_alcohol')}
+        />
+      </View>
+    ),
   }}
 />
+<Stack.Screen
+      name="add_alcohol"
+      component={add_alcohol}
+      options={{
+        title: '',
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: '#2e64e515',
+          shadowColor: '#2e64e515',
+          elevation: 0,
+        },
+        headerBackTitleVisible: false,
+        headerBackImage: () => (
+          <View style={{marginLeft: 15}}>
+            <Ionicons name="arrow-back" size={25} color="#2e64e5" />
+          </View>
+        ),
+      }}
+    />
+
+
+
 <Stack.Screen
   name="food"
   component={Food_function}
@@ -209,8 +278,39 @@ const Menu_founction=({navigation}) => (
       shadowColor: '#fff',
       elevation: 0,
     },
+    headerRight: () => (
+      <View style={{marginRight: 10}}>
+        <FontAwesome5.Button
+          name="plus"
+          size={22}
+          backgroundColor="#fff"
+          color="#2e64e5"
+          onPress={() => navigation.navigate('add_food')}
+        />
+      </View>
+    ),
   }}
-/>
+/> 
+
+<Stack.Screen
+      name="add_food"
+      component={add_food_post}
+      options={{
+        title: '',
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: '#2e64e515',
+          shadowColor: '#2e64e515',
+          elevation: 0,
+        },
+        headerBackTitleVisible: false,
+        headerBackImage: () => (
+          <View style={{marginLeft: 15}}>
+            <Ionicons name="arrow-back" size={25} color="#2e64e5" />
+          </View>
+        ),
+      }}
+    />
 </Stack.Navigator>
 );
 const Map_function = ({navigation}) => (
@@ -324,16 +424,6 @@ const AppStack = () => {
           ),
         }}
       />
-      <Drawer.Screen
-        name="store"
-        component={store_function}
-        options={{
-          drawerIcon:({focused,color,size})=>(
-              <MaterialCommunityIcons name="storefront" style={{fontSize:size,color:color}}/>
-              
-            ),
-          }}
-        />
       <Drawer.Screen
       name="About us"
       component={about_us}

@@ -45,7 +45,7 @@ const EditProfileScreen = () => {
 
   const handleUpdate = async() => {
     let imgUrl = await uploadImage();
-
+    console.log("user=",userData)
     if( imgUrl == null && userData.userImg ) {
       imgUrl = userData.userImg;
     }
