@@ -16,8 +16,8 @@ import PostCard from '../components/PostCard';
 
 const ProfileScreen = ({navigation, route}) => {
   const {user, logout} = useContext(AuthContext);
-  const [posts, setPosts] = useState([]);
 
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
   const [userData, setUserData] = useState(null);
@@ -28,7 +28,7 @@ const ProfileScreen = ({navigation, route}) => {
 
       await firestore()
         .collection('posts')
-        .where('userId','==',user.uid)
+        .where('userId', '==', route.params ? route.params.userId : user.uid)
         .orderBy('postTime', 'desc')
         .get()
         .then((querySnapshot) => {
@@ -70,24 +70,67 @@ const ProfileScreen = ({navigation, route}) => {
       console.log(e);
     }
   };
-useEffect(()=>{
-  fetchPosts();
-},[])
-const handleDelete=()=>{}
-return (
-<SafeAreaView style={{flex:1,backgroundColor:'#fff'}}>
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={{justifyContent:'center',alignItems:'center'}}
-      showsVerticalScrollIndicator={false}
-      >
-      <Image style={styles.userImg} source={require('../assets/users/278478744_3092187571111508_9118093390604905778_n.jpg')}
-      />
-      <Text style={styles.userName}>DNA BAR</Text>
-      <Text style={styles.aboutUser}>
-      
-      </Text>
-      <View style={styles.userBtnWrapper}>
+
+  const getUser = async() => {
+    await firestore()
+    .collection('users')
+    .doc( route.params ? route.params.userId : user.uid)
+    .get()
+    .then((documentSnapshot) => {
+      if( documentSnapshot.exists ) {
+        console.log('User Data', documentSnapshot.data());
+        setUserData(documentSnapshot.data());
+      }
+    })
+  }
+  const like_fun = async (postId) => {
+    console.log("likes=",postId)
+    console.log("user_id=",postId.userId)
+    var sum=0;
+   var b=false;
+    sum=postId.likes+1
+    console.log("sum=",typeof(sum))
+    await  firestore()
+      .collection('posts')
+      .doc(postId.id)
+      .update({
+       liked:b,
+       likes:sum,
+      })
+      .then(() => {
+         b=false;
+      })
+      .catch((error) => {
+        console.log('Something went wrong with added post to firestore.', error);
+      });
+     
+      fetchPosts();
+    }
+  
+  useEffect(() => {
+    getUser();
+    fetchPosts();
+    navigation.addListener("focus", () => setLoading(!loading));
+  }, [navigation, loading]);
+
+  const handleDelete = () => {};
+
+  return (
+    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}}
+        showsVerticalScrollIndicator={false}>
+        <Image
+          style={styles.userImg}
+          source={{uri: userData ? userData.userImg || 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg' : 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg'}}
+        />
+        <Text style={styles.userName}>{userData ? userData.fname || 'Test' : 'Test'} {userData ? userData.lname || 'User' : 'User'}</Text>
+        {/* <Text>{route.params ? route.params.userId : user.uid}</Text> */}
+        <Text style={styles.aboutUser}>
+        {userData ? userData.about || 'No details added.' : ''}
+        </Text>
+        <View style={styles.userBtnWrapper}>
           {route.params ? (
             <>
               <TouchableOpacity style={styles.userBtn} onPress={() => {}}>
@@ -112,19 +155,32 @@ return (
             </>
           )}
         </View>
+
         <View style={styles.userInfoWrapper}>
           <View style={styles.userInfoItem}>
             <Text style={styles.userInfoTitle}>{posts.length}</Text>
             <Text style={styles.userInfoSubTitle}>Posts</Text>
           </View>
+          <View style={styles.userInfoItem}>
+            <Text style={styles.userInfoTitle}>10,000</Text>
+            <Text style={styles.userInfoSubTitle}>Followers</Text>
+          </View>
+          <View style={styles.userInfoItem}>
+            <Text style={styles.userInfoTitle}>100</Text>
+            <Text style={styles.userInfoSubTitle}>Following</Text>
+          </View>
         </View>
 
         {posts.map((item) => (
-          <PostCard key={item.id} item={item} onDelete={handleDelete} />
+          <PostCard key={item.id} 
+          item={item} 
+          onDelete={handleDelete} 
+          like_function={like_fun}
+          />
         ))}
-    </ScrollView>
-</SafeAreaView>
- );
+      </ScrollView>
+    </SafeAreaView>
+  );
 };
 
 export default ProfileScreen;

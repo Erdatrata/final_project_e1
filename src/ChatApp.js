@@ -3,6 +3,17 @@ import Chat from './Chat';
 import Login from './Login';
 import Users from './Users';
 import {
+  View,
+  ScrollView,
+  Text,
+  StyleSheet,
+  FlatList,
+  SafeAreaView,
+  Alert,
+  RefreshControl, 
+ 
+} from 'react-native';
+import {
   getDatabase,
   get,
   ref,
@@ -31,13 +42,12 @@ export default function ChatApp() {
       if (user) {
         setMyData(user);
       } else {
-        const newUserObj = {
-          username: username,
-          avatar: 'https://i.pravatar.cc/150?u=' + Date.now(),
-        };
 
-        set(ref(database, `users/${username}`), newUserObj);
-        setMyData(newUserObj);
+        Alert.alert(
+          'Not eixst!',
+          'use youer name and last name!',
+        );
+          return null;
       }
 
       // set friends list change listener

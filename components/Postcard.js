@@ -18,20 +18,20 @@ import {
 } from '../styles/FeedStyles';
 
 import ProgressiveImage from './ProgressiveImage';
-
 import {AuthContext} from '../navigation/AuthProvider';
 
 import moment from 'moment';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import firestore from '@react-native-firebase/firestore';
 
-const PostCard = ({item, onDelete, onPress}) => {
+const PostCard = ({item, onDelete, like_function, onPress}) => {
+
   const {user, logout} = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
-
+ 
   likeIcon = item.liked ? 'heart' : 'heart-outline';
   likeIconColor = item.liked ? '#2e64e5' : '#333';
-
+  
   if (item.likes == 1) {
     likeText = '1 Like';
   } else if (item.likes > 1) {
@@ -39,7 +39,6 @@ const PostCard = ({item, onDelete, onPress}) => {
   } else {
     likeText = 'Like';
   }
-
   if (item.comments == 1) {
     commentText = '1 Comment';
   } else if (item.comments > 1) {
@@ -47,6 +46,7 @@ const PostCard = ({item, onDelete, onPress}) => {
   } else {
     commentText = 'Comment';
   }
+
 
   const getUser = async () => {
     await firestore()
@@ -102,13 +102,21 @@ const PostCard = ({item, onDelete, onPress}) => {
 
       <InteractionWrapper>
         <Interaction active={item.liked}>
-          <Ionicons name={likeIcon} size={25} color={likeIconColor} />
+        <Interaction onPress={() => like_function(item)}>
+        <Ionicons name={likeIcon} size={25} color={likeIconColor} />
           <InteractionText active={item.liked}>{likeText}</InteractionText>
+          </Interaction>
+        
+        
         </Interaction>
+      
         <Interaction>
           <Ionicons name="md-chatbubble-outline" size={25} />
           <InteractionText>{commentText}</InteractionText>
         </Interaction>
+      
+       
+     
         {user.uid == item.userId ? (
           <Interaction onPress={() => onDelete(item.id)}>
             <Ionicons name="md-trash-bin" size={25} />

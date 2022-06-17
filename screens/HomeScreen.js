@@ -28,7 +28,11 @@ const HomeScreen = ({navigation}) => {
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
+  
+  const [likes,setLikes] = useState(''); 
+
   const fetchPosts = async () => {
+   
     try {
       const list = [];
 
@@ -45,6 +49,7 @@ const HomeScreen = ({navigation}) => {
               post,
               postImg,
               postTime,
+              liked,
               likes,
               comments,
             } = doc.data();
@@ -57,9 +62,9 @@ const HomeScreen = ({navigation}) => {
               postTime: postTime,
               post,
               postImg,
-              liked: false,
-              likes,
-              comments,
+              liked:  liked,
+              likes:likes,
+              comments:0,
             });
           });
         });
@@ -90,6 +95,31 @@ const HomeScreen = ({navigation}) => {
     fetchPosts();
     setDeleted(false);
   }, [deleted]);
+ 
+const like_fun = async (postId) => {
+  console.log("likes=",postId)
+  console.log("user_id=",postId.userId)
+  var sum=0;
+ var b=false;
+  sum=postId.likes+1
+  console.log("sum=",typeof(sum))
+  await  firestore()
+    .collection('posts')
+    .doc(postId.id)
+    .update({
+     liked:b,
+     likes:sum,
+    })
+    .then(() => {
+       b=false;
+    })
+    .catch((error) => {
+      console.log('Something went wrong with added post to firestore.', error);
+    });
+   
+    fetchPosts();
+  }
+
 
   const handleDelete = (postId) => {
     Alert.alert(
@@ -112,7 +142,6 @@ const HomeScreen = ({navigation}) => {
 
   const deletePost = (postId) => {
     console.log('Current Post Id: ', postId);
-
     firestore()
       .collection('posts')
       .doc(postId)
@@ -156,7 +185,7 @@ const HomeScreen = ({navigation}) => {
       })
       .catch((e) => console.log('Error deleting posst.', e));
   };
-
+  
   const ListHeader = () => {
     return null;
   };
@@ -215,6 +244,7 @@ const HomeScreen = ({navigation}) => {
               <PostCard
                 item={item}
                 onDelete={handleDelete}
+                like_function={like_fun}
                 onPress={() =>
                   navigation.navigate('HomeProfile', {userId: item.userId})
                 }

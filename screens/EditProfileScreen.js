@@ -9,6 +9,15 @@ import {
   Alert,
 } from 'react-native';
 
+import {
+  getDatabase,
+  get,
+  ref,
+  set,
+  onValue,
+  push,
+  update,
+} from 'firebase/database';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -43,8 +52,11 @@ const EditProfileScreen = () => {
     })
   }
 
+
+
   const handleUpdate = async() => {
     let imgUrl = await uploadImage();
+    onLogin(userData);
     console.log("user=",userData)
     if( imgUrl == null && userData.userImg ) {
       imgUrl = userData.userImg;
@@ -121,9 +133,40 @@ const EditProfileScreen = () => {
     }
 
   };
+  const onLogin = async (userData) => {
+   
+    try {
+      const database = getDatabase();
+      //first check if the user registered before
+      const username=userData.fname+userData.lname
+      const user = await findUser(username);
+      console.log("name=", username)
+     
+      //create a new user if not registered
+      if (user) {
+        setMyData(user);
+      } else {
+        const newUserObj = {
+          username: username,
+          avatar: 'https://i.pravatar.cc/150?u=' + Date.now(),
+        };
 
+        set(ref(database, `users/${username}`), newUserObj);
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const findUser = async name => {
+    const database = getDatabase();
+    const mySnapshot = await get(ref(database, `users/${name}`));
+
+    return mySnapshot.val();
+  };
   useEffect(() => {
     getUser();
+    
   }, []);
 
   const takePhotoFromCamera = () => {

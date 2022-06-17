@@ -32,7 +32,7 @@ import about_us from '../screens/A_us';
 import Log_Out from '../screens/Logout_page';
 import map_fun from '../screens/ExploreScreen';
 import muisc_function from '../screens/Main_muisc';
-import store_function from '../screens/Main_store';
+
 const Stack = createStackNavigator();
 const Tab=createBottomTabNavigator();
 const Drawer=createDrawerNavigator()
