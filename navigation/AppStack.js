@@ -9,6 +9,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import CustomDrawer from '../components/CustomDrawer';
 import {AuthContext} from './AuthProvider';
 import HomeScreen from '../screens/HomeScreen';
 import ChatScreen from '../screens/ChatScreen';
@@ -24,6 +25,7 @@ import getin_function from '../screens/Getin_function';
 import num_of_cum from '../screens/Number_customers';
 import menu from '../screens/MainTabScreen';
 import who_h from '../screens/who_h';
+import user_come from '../screens/user_come';
 import hookeh_fun from '../screens/hook_order';
 import alcohol_fun from '../screens/Alcohol_fouction';
 import Food_function from '../screens/Food_function';
@@ -35,7 +37,7 @@ import muisc_function from '../screens/Main_muisc';
 
 const Stack = createStackNavigator();
 const Tab=createBottomTabNavigator();
-const Drawer=createDrawerNavigator()
+const Drawer=createDrawerNavigator();
 //for tast
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
@@ -122,8 +124,9 @@ const MessageStack = ({navigation}) => (
     />
   </Stack.Navigator>
 );
+
 const ProfileStack = ({navigation}) => (
-  <Stack.Navigator>
+ <Stack.Navigator>
     <Stack.Screen
       name="Profile"
       component={ProfileScreen}
@@ -132,7 +135,7 @@ const ProfileStack = ({navigation}) => (
       }}
     />
 
-    <Stack.Screen
+    <Stack.Screen 
       name="EditProfile"
       component={EditProfileScreen}
       options={{
@@ -324,6 +327,34 @@ const Map_function = ({navigation}) => (
   />
   </Stack.Navigator>
 );
+const How_here =({navigation})=>(
+    <Stack.Navigator>
+       <Stack.Screen
+         name="who_here"
+         component={who_h}
+         options={{
+           headerShown: false,
+         }}
+       />
+   
+       <Stack.Screen 
+         name="user_come"
+         component={user_come}
+         options={{
+           headerTitle: 'Who coming',
+           headerBackTitleVisible: false,
+           headerTitleAlign: 'center',
+           headerStyle: {
+             backgroundColor: '#fff',
+             shadowColor: '#fff',
+             elevation: 0,
+           },
+         }}
+       />
+   
+     </Stack.Navigator>
+   
+);
 
 const AppStack = () => {
   const {user, logout} = useContext(AuthContext);
@@ -338,7 +369,7 @@ const AppStack = () => {
     return true;
   };
   return(
-    <Drawer.Navigator DrawerContent={(props) => <DrawerContent {...props} />}>
+    <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />}>
    
       <Drawer.Screen
       // name="Home"
@@ -394,8 +425,8 @@ const AppStack = () => {
         }}
       />
       <Drawer.Screen
-      name="who's here?"
-      component={who_h}
+      name="who_here"
+      component={How_here}
       options={{
         drawerIcon:({focused,color,size})=>(
             <Icon name="users" style={{fontSize:size,color:color}}/>
@@ -424,13 +455,13 @@ const AppStack = () => {
           ),
         }}
       />
+      
       <Drawer.Screen
       name="About us"
       component={about_us}
       options={{
         drawerIcon:({focused,color,size})=>(
             <Icon name="handshake-o" style={{fontSize:size,color:color}}/>
-            
           ),
         }}
       />

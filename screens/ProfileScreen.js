@@ -133,12 +133,7 @@ const ProfileScreen = ({navigation, route}) => {
         <View style={styles.userBtnWrapper}>
           {route.params ? (
             <>
-              <TouchableOpacity style={styles.userBtn} onPress={() => {}}>
-                <Text style={styles.userBtnTxt}>Message</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.userBtn} onPress={() => {}}>
-                <Text style={styles.userBtnTxt}>Follow</Text>
-              </TouchableOpacity>
+           
             </>
           ) : (
             <>
@@ -146,9 +141,10 @@ const ProfileScreen = ({navigation, route}) => {
                 style={styles.userBtn}
                 onPress={() => {
                   navigation.navigate('EditProfile');
-                }}>
-                <Text style={styles.userBtnTxt}>Edit</Text>
+                }}>y
+                <Text stle={styles.userBtnTxt}>Edit</Text>
               </TouchableOpacity>
+              
               <TouchableOpacity style={styles.userBtn} onPress={() => logout()}>
                 <Text style={styles.userBtnTxt}>Logout</Text>
               </TouchableOpacity>
@@ -160,14 +156,6 @@ const ProfileScreen = ({navigation, route}) => {
           <View style={styles.userInfoItem}>
             <Text style={styles.userInfoTitle}>{posts.length}</Text>
             <Text style={styles.userInfoSubTitle}>Posts</Text>
-          </View>
-          <View style={styles.userInfoItem}>
-            <Text style={styles.userInfoTitle}>10,000</Text>
-            <Text style={styles.userInfoSubTitle}>Followers</Text>
-          </View>
-          <View style={styles.userInfoItem}>
-            <Text style={styles.userInfoTitle}>100</Text>
-            <Text style={styles.userInfoSubTitle}>Following</Text>
           </View>
         </View>
 

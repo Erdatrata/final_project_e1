@@ -52,12 +52,17 @@ const EditProfileScreen = () => {
     })
   }
 
-
-
   const handleUpdate = async() => {
     let imgUrl = await uploadImage();
-    onLogin(userData);
-    console.log("user=",userData)
+    let t=  await onLogin(userData);
+   console.log("pass=",t)
+   console.log("data=",userData)
+   if (t==undefined){
+    console.log("okk")
+   }
+   if (t==null){
+     return null;
+   }
     if( imgUrl == null && userData.userImg ) {
       imgUrl = userData.userImg;
     }
@@ -138,13 +143,22 @@ const EditProfileScreen = () => {
     try {
       const database = getDatabase();
       //first check if the user registered before
+      if(userData.fname || userData.lname ){
+        console.log("fname=",userData.fname)
+        console.log("lname=",userData.lname)
+      }
       const username=userData.fname+userData.lname
       const user = await findUser(username);
-      console.log("name=", username)
-     
+      console.log("user=",user)
       //create a new user if not registered
       if (user) {
-        setMyData(user);
+        if (username==user.username){
+          Alert.alert(
+            'user exsit',
+            'try another username.'
+          );
+          return null
+        }
       } else {
         const newUserObj = {
           username: username,
@@ -152,6 +166,8 @@ const EditProfileScreen = () => {
         };
 
         set(ref(database, `users/${username}`), newUserObj);
+        console.log("d=",userData)
+        return userData;
       }
 
     } catch (error) {

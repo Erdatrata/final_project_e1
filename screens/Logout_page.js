@@ -24,22 +24,6 @@ const Log_out = ({navigation}) => {
     const {user, logout} = useContext(AuthContext);
     return(   
 
-        // <SafeAreaView style={styles.container}>
-        // <View>
-        //   <Text style={styles.title}>
-        //    ברןך לעמוד שבו נוכל לדעת מי בא עלינו היום בערב כדי שנוכל לדעת זאת 
-        //    אנחנו צריכים שתאשר הגעה בלחיצת כפתור מגיע ,
-        //    ובכפתור מי בא תוכל לדעת אילו חברים היום יגיעו לבר (:
-
-        //   </Text>
-    
-        // </View>
-        // {Separator}
-        // <TouchableOpacity style={styles.userBtn} onPress={() => logout()}>
-
-        // <Text style={styles.userBtnTxt}>Logout</Text>
-        // </TouchableOpacity>
-        // </SafeAreaView>
 
         <View style={styles.text}>
         <Text style={styles.container}> בטוח שאתה רוצה לצאת?</Text>

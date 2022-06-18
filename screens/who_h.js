@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, FlatList,Linking,TouchableOpacity , Alert, SafeAreaView } from 'react-native';
+import { View, Text, Button, StyleSheet, FlatList,Linking,TouchableOpacity , Alert,
+  SafeAreaView } from 'react-native';
 import {
   Container,
   Card,
@@ -12,14 +13,12 @@ import {
   MessageText,
   TextSection,
 } from '../styles/MessageStyles';
+import who_come from './user_come';
 
-
-const Separator = () => (
-  <View style={styles.separator} />
-);
-
-const App = () => (
-  <SafeAreaView style={styles.container}>
+const App_user_come = ({navigation}) => {
+  
+  return(
+    <SafeAreaView style={styles.container}>
     <View>
       <Text style={styles.title}>
        ברןך לעמוד שבו נוכל לדעת מי בא עלינו היום בערב כדי שנוכל לדעת זאת 
@@ -32,20 +31,26 @@ const App = () => (
     <View>
   
       <View style={styles.buttonText}>
-        <Button
-          title="מי מגיע?"
-          onPress={() => Alert.alert('Left button pressed')}
-        />
+      <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('user_come');
+                }}>
+                <Text stle={styles.userBtnTxt}> מי מגיע?</Text>
+              </TouchableOpacity>
         </View>
        <View style={styles.buttonText}>
         <Button
           title="מגיע"
-          onPress={() => Alert.alert('Right button pressed')}
+          onPress={() =>come()}
         />
       </View>
     </View>
   </SafeAreaView>
-);
+  
+  );
+
+  
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -79,4 +84,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default App;
+export default App_user_come;
