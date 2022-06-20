@@ -110,12 +110,7 @@ const PostCard = ({item, onDelete, like_function, onPress}) => {
         
         </Interaction>
       
-        <Interaction>
-          <Ionicons name="md-chatbubble-outline" size={25} />
-          <InteractionText>{commentText}</InteractionText>
-        </Interaction>
-      
-       
+     
      
         {user.uid == item.userId ? (
           <Interaction onPress={() => onDelete(item.id)}>

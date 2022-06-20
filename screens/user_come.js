@@ -7,6 +7,7 @@ import {
   StyleSheet,
   FlatList,
   SafeAreaView,
+  Pressable,
   Alert,
   RefreshControl, 
   Image,
@@ -37,9 +38,8 @@ import {
   InteractionText,
   Divider,
 } from '../styles/FeedStyles';
-import { array } from 'prop-types';
 
-export default function ChatApp() {
+const user_come = ({navigation}) => {
   const [currentPage, setCurrentPage] = useState('login');
   const [username, setUsername] = useState(null);
   const [users, setUsers] = useState([]);
@@ -56,9 +56,7 @@ export default function ChatApp() {
 
     const arr=Object.keys(user)
     const array = Object.values( user );
-    console.log("t=",array)
 
-    console.log("t_1=",array[0].userImge)
     
       setUsers(array);
     } catch (error) {
@@ -84,37 +82,50 @@ export default function ChatApp() {
   };
  
   return (
+    <ScrollView style={styles.container}>
     <View style={styles.container}>
       {users.map((person) => {
        
         return (
-          <Text style={styles.item}  >
-          <UserImg  style={styles.stImge}  source={{ uri: person.userImge }}/>
-          {person.username}
-        </Text>
+          <Pressable  style={styles.row}>
+          <Image style={styles.avatar} source={{uri: person.userImge}} />
+          <Text style={styles.text}>{person.username} {person.user_lest_name}</Text>
+        </Pressable>
         );
       })}
   
     </View>
+    </ScrollView>
+
   );
   
 };
-
+export default user_come;
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-
+  container:{
+    flex:1,
+    backgroundColor:'#000000',
   },
-  item: {
-    padding: 20,
-    fontSize: 20,
-    marginTop: 5,
-  },
-  stImge:{
+  avatar: {
     width: 50,
     height: 50,
-    borderRadius: 25,
-
-  }
+    marginRight: 10,
+  },
+  row: {
+    flexDirection: 'row',
+    padding: 10,
+    alignItems: 'center',
+    borderBottomColor: '#cacaca',
+    borderBottomWidth: 1,
+  },
+  addUser: {
+    flexDirection: 'row',
+    padding: 10,
+  },
+  text: {
+    backgroundColor: '#ffffff',
+    flex: 1,
+    marginRight: 10,
+    padding: 10,
+  },
 });

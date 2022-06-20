@@ -33,7 +33,7 @@ const {width, height} = Dimensions.get('window');
 const fetchProfilePicturesRequest = async () => {
   console.log("1")
   const reference = await storage()
-  .ref(`files`)
+  .ref(`uploads`)
   .listAll();
   
   var imageHolder = [];
@@ -95,7 +95,7 @@ const MusicPlayer = () => {
 
  
   const setupPlayer = async () => {
-console.log("1")
+    console.log("1")
     try {
       await TrackPlayer.setupPlayer();
       await TrackPlayer.updateOptions({
@@ -129,12 +129,18 @@ console.log("1")
  
   useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
     console.log("3")
-    if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== null) {
+    if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== null && event.nextTrack!=undefined) {
+      console.log("9999=",event.nextTrack)
       const track = await TrackPlayer.getTrack(event.nextTrack);
       const {title, artwork, artist} = track;
       setTrackTitle(title);
       setTrackArtist(artist);
       setTrackArtwork(artwork);
+    }
+    else{
+      console.log("888")
+
+      return null;
     }
   });
 
@@ -177,6 +183,7 @@ console.log("1")
   };
 
   useEffect(() => {
+    console.log("7")
     setupPlayer();
 
     scrollX.addListener(({value}) => {
@@ -197,14 +204,14 @@ console.log("1")
   }, []);
 
   const skipToNext = () => {
-    console.log("7.5")
+    console.log("8")
     songSlider.current.scrollToOffset({
       offset: (songIndex + 1) * width,
     });
   };
 
   const skipToPrevious = () => {
-    console.log("7")
+    console.log("9")
     songSlider.current.scrollToOffset({
       offset: (songIndex - 1) * width,
     });
@@ -212,7 +219,15 @@ console.log("1")
 
 
   const renderSongs = ({item, index}) => {
-    console.log("8")
+    console.log("10")
+    console.log("rata_song=",item)
+    if (item==null){
+      console.log("rata_soassssssssssssssssssssssssssssssssssssssssssss")
+
+      return null;
+    }
+    console.log("rata_song_22=",index)
+
     return (
       <Animated.View style={style.mainWrapper}>
         <View style={[style.imageWrapper, style.elevation]}>

@@ -46,12 +46,21 @@ const App_user_come = ({navigation}) => {
     })
   }
   const onLogin = async () => {
+    const database = getDatabase();
+
     try {
       //first check if the user registered before
-     
       const tamp=await getUser();
     const user = await findUser();
+    console.log("uset=",userData)
+    if(userData==null){
+        Alert.alert(
+            'Try again',
+          );
+          return null;
+    }
     const array = Object.values( user );
+
     for (var i=0;i<array.length;i++){
       if (array[i].username==userData.fname && array[i].user_lest_name==userData.lname){
         Alert.alert(
@@ -72,13 +81,21 @@ const App_user_come = ({navigation}) => {
           'username or user last name.'
         );
         return null;
-       }
+       
+      }
+      else{
+        const newChatroomRef = push(ref(database, 'user_come'), {
+          username:userData.fname,
+          user_lest_name:userData.lname,
+          userImge:userData.userImg,
+         });
+         Alert.alert(
+          'Succeeded',
+          'Add to the list of those who came tonight'
+        );
+      }
 
-       const newChatroomRef = push(ref(database, 'user_come'), {
-       username:userData.fname,
-       user_lest_name:userData.lname,
-       userImge:userData.userImg,
-      });
+    
      
   };
     const findUser = async()=> {
@@ -91,9 +108,9 @@ const App_user_come = ({navigation}) => {
     <SafeAreaView style={styles.container}>
     <View>
       <Text style={styles.title}>
-       ברןך לעמוד שבו נוכל לדעת מי בא עלינו היום בערב כדי שנוכל לדעת זאת 
-       אנחנו צריכים שתאשר הגעה בלחיצת כפתור מגיע ,
-       ובכפתור מי בא תוכל לדעת אילו חברים היום יגיעו לבר (:
+       ברוכים הבאים לעמוד שבו נוכל לדעת מי בא עלינו היום בערב כדי שנוכל לדעת זאת 
+       אנחנו צריכים שתאשרו הגעה בלחיצת כפתור מגיע ,
+       ובכפתור מי מגיע? תוכל לדעת אילו חברים היום יגיעו לבר (:
       </Text>
 
     </View>
@@ -131,6 +148,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     marginVertical: 8,
+   
   },
   buttonText: {
     fontSize: 18,

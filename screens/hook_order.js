@@ -44,6 +44,7 @@ const hook_order = ({navigation}) => {
               post,
               postImg,
               postTime,
+              liked,
               likes,
               comments,
             } = doc.data();
@@ -56,8 +57,8 @@ const hook_order = ({navigation}) => {
               postTime: postTime,
               post,
               postImg,
-              liked: false,
-              likes,
+              liked: liked,
+              likes:likes,
               comments,
             });
           });
@@ -91,6 +92,29 @@ const hook_order = ({navigation}) => {
     fetchPosts();
     setDeleted(false);
   }, [deleted]);
+  const like_fun = async (postId) => {
+    console.log("likes=",postId)
+    console.log("user_id=",postId.userId)
+    var sum=0;
+   var b=false;
+    sum=postId.likes+1
+    console.log("sum=",typeof(sum))
+    await  firestore()
+      .collection('hook')
+      .doc(postId.id)
+      .update({
+       liked:b,
+       likes:sum,
+      })
+      .then(() => {
+         b=false;
+      })
+      .catch((error) => {
+        console.log('Something went wrong with added post to firestore.', error);
+      });
+     
+      fetchPosts();
+    }
 
   const handleDelete = async(postId) => {
     Alert.alert(
@@ -216,6 +240,7 @@ const hook_order = ({navigation}) => {
               <PostCard_food
                 item={item}
                 onDelete={handleDelete}
+                like_function={like_fun}
                 onPress={() =>
                   navigation.navigate('hook_order', {userId: item.userId})
                 }

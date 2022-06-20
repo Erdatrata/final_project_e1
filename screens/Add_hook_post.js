@@ -136,7 +136,7 @@ const Add_food_post = () => {
       post: post,
       postImg: imageUrl,
       postTime: firestore.Timestamp.fromDate(new Date()),
-      likes: 16,
+      likes:null,
       comments: null,
     })
     .then(() => {

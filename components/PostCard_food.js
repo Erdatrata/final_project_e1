@@ -25,7 +25,7 @@ import moment from 'moment';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import firestore from '@react-native-firebase/firestore';
 
-const PostCard_food = ({item, onDelete, onPress}) => {
+const PostCard_food = ({item, onDelete, like_function, onPress}) => {
   const {user, logout} = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
 
@@ -102,10 +102,12 @@ const PostCard_food = ({item, onDelete, onPress}) => {
 
       <InteractionWrapper>
         <Interaction active={item.liked}>
+          
+        <Interaction onPress={() => like_function(item)}>
           <Ionicons name={likeIcon} size={25} color={likeIconColor} />
           <InteractionText active={item.liked}>{likeText}</InteractionText>
         </Interaction>
-      
+        </Interaction>
         {user.uid == item.userId ? (
           <Interaction onPress={() => onDelete(item.id)}>
             <Ionicons name="md-trash-bin" size={25} />

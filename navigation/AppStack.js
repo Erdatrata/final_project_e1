@@ -20,20 +20,19 @@ import add_alcohol from '../screens/add_alcohol_post';
 import add_food_post from '../screens/add_food_post';
 import MessagesScreen from '../screens/MessagesScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
-import DrawerContent from '../screens/DrawerContent';
 import getin_function from '../screens/Getin_function';
-import num_of_cum from '../screens/Number_customers';
 import menu from '../screens/MainTabScreen';
 import who_h from '../screens/who_h';
 import user_come from '../screens/user_come';
 import hookeh_fun from '../screens/hook_order';
 import alcohol_fun from '../screens/Alcohol_fouction';
 import Food_function from '../screens/Food_function';
-import L_and_F from '../screens/Lost_and_found';
 import about_us from '../screens/A_us';
 import Log_Out from '../screens/Logout_page';
 import map_fun from '../screens/ExploreScreen';
 import muisc_function from '../screens/Main_muisc';
+import refresh_user_come from '../screens/refresh_user_come';
+import refresh_music from '../screens/Refresh_music';
 
 const Stack = createStackNavigator();
 const Tab=createBottomTabNavigator();
@@ -273,7 +272,7 @@ const Menu_founction=({navigation}) => (
   name="food"
   component={Food_function}
   options={{
-    headerTitle: 'Menu Alcohol',
+    headerTitle: 'Menu Food',
     headerBackTitleVisible: false,
     headerTitleAlign: 'center',
     headerStyle: {
@@ -335,9 +334,11 @@ const How_here =({navigation})=>(
          options={{
            headerShown: false,
          }}
+
        />
    
        <Stack.Screen 
+
          name="user_come"
          component={user_come}
          options={{
@@ -349,11 +350,95 @@ const How_here =({navigation})=>(
              shadowColor: '#fff',
              elevation: 0,
            },
+           headerRight: () => (
+            <View style={{marginRight: 10}}>
+              <FontAwesome5.Button
+                name="trash-alt"
+                size={22}
+                backgroundColor="#fff"
+                color="#2e64e5"
+                onPress={() => navigation.navigate('refresh')}
+              />
+            </View>
+          ),
          }}
+         
        />
+       <Stack.Screen
+      name="refresh"
+      component={refresh_user_come}
+      options={{
+        title: 'who_coming',
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: '#ffffff',
+          shadowColor: '#2e64e515',
+          elevation: 0,
+        },
+        headerBackTitleVisible: false,
+        headerBackImage: () => (
+          <View style={{marginLeft: 15}}>
+            <Ionicons name="arrow-back" size={25} color="#2e64e5" />
+          </View>
+        ),
+   
+      }}
+    />
    
      </Stack.Navigator>
    
+);
+const Music_function = ({navigation}) => (
+  <Stack.Navigator>
+        <Stack.Screen 
+
+          name="Music"
+          component={muisc_function}
+          options={{
+            headerTitle: 'Music',
+            headerBackTitleVisible: false,
+            headerTitleAlign: 'center',
+            headerStyle: {
+              backgroundColor: '#fff',
+              shadowColor: '#fff',
+              elevation: 0,
+            },
+            headerRight: () => (
+            <View style={{marginRight: 10}}>
+              <FontAwesome5.Button
+                name="trash-alt"
+                size={22}
+                backgroundColor="#fff"
+                color="#2e64e5"
+                onPress={() => navigation.navigate('refresh_music')}
+              />
+            </View>
+          ),
+          }}
+
+          />
+        <Stack.Screen
+      name="refresh_music"
+      component={refresh_music}
+      options={{
+        title: 'who_coming',
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: '#ffffff',
+          shadowColor: '#2e64e515',
+          elevation: 0,
+        },
+        headerBackTitleVisible: false,
+        headerBackImage: () => (
+          <View style={{marginLeft: 15}}>
+            <Ionicons name="arrow-back" size={25} color="#2e64e5" />
+          </View>
+        ),
+   
+      }}
+    />
+
+  </Stack.Navigator>
 );
 
 const AppStack = () => {
@@ -447,7 +532,7 @@ const AppStack = () => {
       />
      <Drawer.Screen
       name="Music"
-      component={muisc_function}
+      component={Music_function}
       options={{
         drawerIcon:({focused,color,size})=>(
             <Icon name="music" style={{fontSize:size,color:color}}/>
@@ -479,55 +564,7 @@ const AppStack = () => {
       
     </Drawer.Navigator>
   
-  //   <Tab.Navigator
-  //   tabBarOptions={{
-  //     activeTintColor: '#2e64e5',
-  //   }}>
-  //   <Tab.Screen
-  //     name="Home"
-  //     component={FeedStack}
-  //     options={({route}) => ({
-  //       tabBarLabel: 'Home',
-  //       // tabBarVisible: route.state && route.state.index === 0,
-  //       tabBarIcon: ({color, size}) => (
-  //         <MaterialCommunityIcons
-  //           name="home-outline"
-  //           color={color}
-  //           size={size}
-  //         />
-  //       ),
-  //     })}
-  //   />    
-  //   <Tab.Screen
-  //   name="Messages"
-  //   component={MessageStack}
-  //   options={({route}) => ({
-  //     tabBarVisible: getTabBarVisibility(route),
-  //     // Or Hide tabbar when push!
-  //     // https://github.com/react-navigation/react-navigation/issues/7677
-  //     // tabBarVisible: route.state && route.state.index === 0,
-  //     // tabBarLabel: 'Home',
-  //     tabBarIcon: ({color, size}) => (
-  //       <Ionicons
-  //         name="chatbox-ellipses-outline"
-  
-  //         color={color}
-  //         size={size}
-  //       />
-  //     ),
-  //   })}
-  // />
-  //       <Tab.Screen
-  //       name="Profile"
-  //       component={ProfileStack}
-  //       options={{
-  //         // tabBarLabel: 'Home',
-  //         tabBarIcon: ({color, size}) => (
-  //           <Ionicons name="person-outline" color={color} size={size} />
-  //         ),
-  //       }}
-  //     />
-  //      </Tab.Navigator>
+ 
   );
 }
 
