@@ -1,22 +1,92 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet, FlatList,Linking,TouchableOpacity , Alert,
-  SafeAreaView } from 'react-native';
+import React, {useEffect, useContext, useState} from 'react';
 import {
-  Container,
-  Card,
-  UserInfo,
-  UserImgWrapper,
-  UserImg,
-  UserInfoText,
-  UserName,
-  PostTime,
-  MessageText,
-  TextSection,
-} from '../styles/MessageStyles';
+  View,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+  TextInput,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  Button, 
+  Alert,
+} from 'react-native';
+
+import {
+  getDatabase,
+  get,
+  ref,
+  set,
+  onValue,
+  push,
+  update,
+} from 'firebase/database';
 import who_come from './user_come';
+import {AuthContext} from '../navigation/AuthProvider';
+import firestore from '@react-native-firebase/firestore';
 
 const App_user_come = ({navigation}) => {
-  
+  const {user, logout} = useContext(AuthContext);
+  const [image, setImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [transferred, setTransferred] = useState(0);
+  const [userData, setUserData] = useState(null);
+
+  const getUser = async() => {
+    const currentUser = await firestore()
+    .collection('users')
+    .doc(user.uid)
+    .get()
+    .then((documentSnapshot) => {
+      if( documentSnapshot.exists ) {
+        
+        setUserData(documentSnapshot.data());
+      
+      }
+    })
+  }
+  const onLogin = async () => {
+    try {
+      //first check if the user registered before
+     
+      const tamp=await getUser();
+    const user = await findUser();
+    const array = Object.values( user );
+    for (var i=0;i<array.length;i++){
+      if (array[i].username==userData.fname && array[i].user_lest_name==userData.lname){
+        Alert.alert(
+          'User Alreadly in list',
+        );
+        return null;
+        
+      }
+    }
+    
+    } catch (error) {
+      console.error(error);
+    }
+        
+       if ((userData.fname =="" && userData.lname=="" )){
+        Alert.alert(
+          'you miss',
+          'username or user last name.'
+        );
+        return null;
+       }
+
+       const newChatroomRef = push(ref(database, 'user_come'), {
+       username:userData.fname,
+       user_lest_name:userData.lname,
+       userImge:userData.userImg,
+      });
+     
+  };
+    const findUser = async()=> {
+    const database = getDatabase();
+    const mySnapshot = await get(ref(database,`user_come`));
+
+    return mySnapshot.val();
+  };
   return(
     <SafeAreaView style={styles.container}>
     <View>
@@ -41,7 +111,7 @@ const App_user_come = ({navigation}) => {
        <View style={styles.buttonText}>
         <Button
           title="מגיע"
-          onPress={() =>come()}
+          onPress={() => onLogin()}
         />
       </View>
     </View>

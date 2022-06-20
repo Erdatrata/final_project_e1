@@ -141,7 +141,7 @@ const ProfileScreen = ({navigation, route}) => {
                 style={styles.userBtn}
                 onPress={() => {
                   navigation.navigate('EditProfile');
-                }}>y
+                }}>
                 <Text stle={styles.userBtnTxt}>Edit</Text>
               </TouchableOpacity>
               

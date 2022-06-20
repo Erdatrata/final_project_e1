@@ -1,70 +1,120 @@
-import React from 'react';
+import React, {useEffect, useContext, useState} from 'react';
+import Users from '../src/Users';
 import {
-  Button,
-  FlatList,
-  Image,
-  Pressable,
-  StyleSheet,
-  TextInput,
   View,
+  ScrollView,
   Text,
+  StyleSheet,
+  FlatList,
+  SafeAreaView,
+  Alert,
+  RefreshControl, 
+  Image,
+  ImageBackground,
+ 
 } from 'react-native';
+import {
+  getDatabase,
+  get,
+  ref,
+  set,
+  onValue,
+  push,
+  update,
+} from 'firebase/database';
+import {
+  Container,
+  Card,
+  UserInfo,
+  UserImg,
+  UserName,
+  UserInfoText,
+  PostTime,
+  PostText,
+  PostImg,
+  InteractionWrapper,
+  Interaction,
+  InteractionText,
+  Divider,
+} from '../styles/FeedStyles';
+import { array } from 'prop-types';
 
-export default function Users({
-  users,
-  onClickUser,
-  userToAdd,
-  setUserToAdd,
-  onAddFriend,
-}) {
-  const renderUser = ({item}) => {
-    return (
-      <Pressable onPress={() => onClickUser(item)} style={styles.row}>
-        <Image style={styles.avatar} source={{uri: item.avatar}} />
-        <Text>{item.username}</Text>
-      </Pressable>
-    );
+export default function ChatApp() {
+  const [currentPage, setCurrentPage] = useState('login');
+  const [username, setUsername] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [userToAdd, setUserToAdd] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [myData, setMyData] = useState(null);
+
+  const onLogin = async () => {
+    try {
+      const database = getDatabase();
+      //first check if the user registered before
+
+      const user = await findUser();
+
+    const arr=Object.keys(user)
+    const array = Object.values( user );
+    console.log("t=",array)
+
+    console.log("t_1=",array[0].userImge)
+    
+      setUsers(array);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  const findUser = async () => {
+    const database = getDatabase();
+
+    const mySnapshot = await get(ref(database, `user_come`));
+
+    return mySnapshot.val();
+  };
+
+
+  useEffect(() => {
+    onLogin();
+    
+  }, []);
+  const onBack = () => {
+    setCurrentPage('users');
+  };
+ 
   return (
-    <>
-      <View style={styles.addUser}>
-        <TextInput
-          style={styles.input}
-          onChangeText={setUserToAdd}
-          value={userToAdd}
-        />
-        <Button title={'Add User'} onPress={() => onAddFriend(userToAdd)} />
-      </View>
-      <FlatList
-        data={users}
-        renderItem={renderUser}
-        keyExtractor={item => item.username.toString()}
-      />
-    </>
+    <View style={styles.container}>
+      {users.map((person) => {
+       
+        return (
+          <Text style={styles.item}  >
+          <UserImg  style={styles.stImge}  source={{ uri: person.userImge }}/>
+          {person.username}
+        </Text>
+        );
+      })}
+  
+    </View>
   );
-}
+  
+};
 
 const styles = StyleSheet.create({
-  avatar: {
+  container: {
+    flex: 1,
+    padding: 10,
+
+  },
+  item: {
+    padding: 20,
+    fontSize: 20,
+    marginTop: 5,
+  },
+  stImge:{
     width: 50,
     height: 50,
-    marginRight: 10,
-  },
-  row: {
-    flexDirection: 'row',
-    padding: 10,
-    alignItems: 'center',
-    borderBottomColor: '#cacaca',
-    borderBottomWidth: 1,
-  },
-  addUser: {
-    flexDirection: 'row',
-    padding: 10,
-  },
-  input: {
-    backgroundColor: '#cacaca',
-    flex: 1,
-    marginRight: 10,
-    padding: 10,
-  },
+    borderRadius: 25,
+
+  }
 });
