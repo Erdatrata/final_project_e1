@@ -147,7 +147,7 @@ const EditProfileScreen = () => {
         console.log("fname=",userData.fname)
         console.log("lname=",userData.lname)
       }
-      const username=userData.fname+userData.lname
+      const username=userData.fname+' '+userData.lname
       const user = await findUser(username);
       console.log("user=",user)
       //create a new user if not registered
