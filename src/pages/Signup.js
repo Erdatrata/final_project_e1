@@ -16,11 +16,10 @@ import Form from '../components/Form';
             return(
                 <View style={styles.container} >
                     <Logo/>
-<<<<<<< HEAD
+
                     <Form type="Signup" hideNavBar={true}/>
-=======
+
                     <Form type="Signup" />
->>>>>>> master
                     <View style={styles.signupTextCont}>
                         <Text style={styles.signupText}> Already have an account ? </Text>
                         <Text style={styles.signupButton}>

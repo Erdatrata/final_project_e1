@@ -129,7 +129,7 @@ def nativeArchitectures = project.getProperties().get("reactNativeDebugArchitect
 android {
     ndkVersion rootProject.ext.ndkVersion
 
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion 31
 
     defaultConfig {
         applicationId "com.my_first_app"
