@@ -21,7 +21,7 @@ import firestore from '@react-native-firebase/firestore';
 import {Container} from '../styles/FeedStyles';
 import PostCard_food from '../components/PostCard_food';
 
-const food_order = ({navigation}) => {
+const Food_order = ({navigation}) => {
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
@@ -259,5 +259,5 @@ const food_order = ({navigation}) => {
 
 };
 
-export default  food_order;
+export default  Food_order;
 

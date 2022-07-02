@@ -28,7 +28,11 @@ export const AuthProvider = ({children}) => {
           
           try {
             await auth().signInWithEmailAndPassword(email, password);
+         
           } catch (e) {
+            Alert.alert(
+              'Failed to Login',
+            );
             console.log(e);
           }
         },
