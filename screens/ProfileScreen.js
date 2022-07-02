@@ -65,7 +65,6 @@ const ProfileScreen = ({navigation, route}) => {
         setLoading(false);
       }
 
-      console.log('Posts: ', posts);
     } catch (e) {
       console.log(e);
     }
@@ -78,18 +77,15 @@ const ProfileScreen = ({navigation, route}) => {
     .get()
     .then((documentSnapshot) => {
       if( documentSnapshot.exists ) {
-        console.log('User Data', documentSnapshot.data());
         setUserData(documentSnapshot.data());
       }
     })
   }
   const like_fun = async (postId) => {
-    console.log("likes=",postId)
-    console.log("user_id=",postId.userId)
+ 
     var sum=0;
    var b=false;
     sum=postId.likes+1
-    console.log("sum=",typeof(sum))
     await  firestore()
       .collection('posts')
       .doc(postId.id)

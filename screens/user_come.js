@@ -104,7 +104,7 @@ export default user_come;
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:'#000000',
+    backgroundColor:'#ffffff',
   },
   avatar: {
     width: 50,

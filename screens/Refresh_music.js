@@ -41,21 +41,14 @@ const getUser = async() => {
     try {
         //first check if the user registered before
         const tamp=await getUser();
-        console.log("uset=",userData)
         if(userData==null){
             Alert.alert(
                 'Try again',
               );
               return null;
         }
-        // if (userData.fname!="adminnda"){
-        //     Alert.alert(
-        //         'only adnim',
-        //       );
-        //     return null;
-        //    }else{
+
             const storageRef = firebase.storage().ref('uploads');
-            console.log("uploads=",storageRef)
             storageRef.listAll().then((listResults) => {
               const promises = listResults.items.map((item) => {
                 return item.delete();

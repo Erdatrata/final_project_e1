@@ -31,7 +31,6 @@ import storage from '@react-native-firebase/storage';
 const {width, height} = Dimensions.get('window');
 
 const fetchProfilePicturesRequest = async () => {
-  console.log("1")
   const reference = await storage()
   .ref(`uploads`)
   .listAll();
@@ -47,7 +46,6 @@ const fetchProfilePicturesRequest = async () => {
   return imageHolder;
   };
   const setupsong = async () => {
-    console.log("2")
     const songs_1=await fetchProfilePicturesRequest();
     const arr_song=[]
     for(var i=0; i< songs_1.length;i++){
@@ -95,7 +93,6 @@ const MusicPlayer = () => {
 
  
   const setupPlayer = async () => {
-    console.log("1")
     try {
       await TrackPlayer.setupPlayer();
       await TrackPlayer.updateOptions({
@@ -109,12 +106,10 @@ const MusicPlayer = () => {
       });
       await TrackPlayer.add(songs);
     } catch (error) {
-      console.log("rata=",error);
     }
   };
   
   const togglePlayBack = async playBackState => {
-    console.log("2")
     const currentTrack = await TrackPlayer.getCurrentTrack();
     console.log(currentTrack, playBackState, State.Playing);
     if (currentTrack != null) {
@@ -128,9 +123,7 @@ const MusicPlayer = () => {
   
  
   useTrackPlayerEvents([Event.PlaybackTrackChanged], async event => {
-    console.log("3")
     if (event.type === Event.PlaybackTrackChanged && event.nextTrack !== null && event.nextTrack!=undefined) {
-      console.log("9999=",event.nextTrack)
       const track = await TrackPlayer.getTrack(event.nextTrack);
       const {title, artwork, artist} = track;
       setTrackTitle(title);
@@ -138,14 +131,11 @@ const MusicPlayer = () => {
       setTrackArtwork(artwork);
     }
     else{
-      console.log("888")
-
       return null;
     }
   });
 
   const repeatIcon = () => {
-    console.log("4")
     if (repeatMode == 'off') {
       return 'repeat-off';
     }
@@ -160,7 +150,6 @@ const MusicPlayer = () => {
   };
 
   const changeRepeatMode = () => {
-    console.log("5")
     if (repeatMode == 'off') {
       TrackPlayer.setRepeatMode(RepeatMode.Track);
       setRepeatMode('track');
@@ -178,19 +167,16 @@ const MusicPlayer = () => {
   };
 
   const skipTo = async trackId => {
-    console.log("6")
     await TrackPlayer.skip(trackId);
   };
 
   useEffect(() => {
-    console.log("7")
     setupPlayer();
 
     scrollX.addListener(({value}) => {
       //   console.log(`ScrollX : ${value} | Device Width : ${width} `);
 
       const index = Math.round(value / width);
-      console.log("index=",index)
       skipTo(index);
       setsongIndex(index);
 
@@ -204,14 +190,12 @@ const MusicPlayer = () => {
   }, []);
 
   const skipToNext = () => {
-    console.log("8")
     songSlider.current.scrollToOffset({
       offset: (songIndex + 1) * width,
     });
   };
 
   const skipToPrevious = () => {
-    console.log("9")
     songSlider.current.scrollToOffset({
       offset: (songIndex - 1) * width,
     });
@@ -219,14 +203,10 @@ const MusicPlayer = () => {
 
 
   const renderSongs = ({item, index}) => {
-    console.log("10")
-    console.log("rata_song=",item)
+ 
     if (item==null){
-      console.log("rata_soassssssssssssssssssssssssssssssssssssssssssss")
-
       return null;
     }
-    console.log("rata_song_22=",index)
 
     return (
       <Animated.View style={style.mainWrapper}>

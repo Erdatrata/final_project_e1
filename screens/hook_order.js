@@ -70,7 +70,6 @@ const hook_order = ({navigation}) => {
         setLoading(false);
       }
 
-      console.log('food_order: ', posts);
     } catch (e) {
       console.log(e);
     }
@@ -93,12 +92,9 @@ const hook_order = ({navigation}) => {
     setDeleted(false);
   }, [deleted]);
   const like_fun = async (postId) => {
-    console.log("likes=",postId)
-    console.log("user_id=",postId.userId)
     var sum=0;
    var b=false;
     sum=postId.likes+1
-    console.log("sum=",typeof(sum))
     await  firestore()
       .collection('hook')
       .doc(postId.id)
@@ -136,8 +132,6 @@ const hook_order = ({navigation}) => {
   };
 
   const deletePost = (postId) => {
-    console.log('Current Post Id: ', postId);
-
     firestore()
       .collection('hook')
       .doc(postId)

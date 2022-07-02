@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import Chat from './Chat';
 import Login from './Login';
 import Users from './Users';
@@ -22,6 +22,9 @@ import {
   push,
   update,
 } from 'firebase/database';
+import {AuthContext} from '../navigation/AuthProvider';
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 export default function ChatApp() {
   const [currentPage, setCurrentPage] = useState('login');
@@ -30,21 +33,42 @@ export default function ChatApp() {
   const [userToAdd, setUserToAdd] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [myData, setMyData] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const {user, logout} = useContext(AuthContext);
+
+  const getUser = async() => {
+    const currentUser = await firestore()
+    .collection('users')
+    .doc(user.uid)
+    .get()
+    .then((documentSnapshot) => {
+      if( documentSnapshot.exists ) {
+        setUserData(documentSnapshot.data());
+
+      }
+    })
+  }
 
   const onLogin = async () => {
     try {
-      const database = getDatabase();
+      const database = await getDatabase();
       //first check if the user registered before
-
-      const user = await findUser(username);
-
+      const username_2=userData.fname+' '+userData.lname
+      const user = await findUser(username_2);
+      if (username!=username_2){
+        Alert.alert(
+          'Does not match!',
+          'This is not your username!',
+        );
+          return null;
+      }
       //create a new user if not registered
       if (user) {
         setMyData(user);
       } else {
 
         Alert.alert(
-          'Not eixst!',
+          'Does not exist!',
           'use youer name and last name!',
         );
           return null;
@@ -144,7 +168,10 @@ export default function ChatApp() {
   const onBack = () => {
     setCurrentPage('users');
   };
-
+  useEffect(() => {
+    getUser();
+    
+  }, []);
   switch (currentPage) {
     case 'login':
       return (

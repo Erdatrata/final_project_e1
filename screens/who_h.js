@@ -52,7 +52,6 @@ const App_user_come = ({navigation}) => {
       //first check if the user registered before
       const tamp=await getUser();
     const user = await findUser();
-    console.log("uset=",userData)
     if(userData==null){
         Alert.alert(
             'Try again',

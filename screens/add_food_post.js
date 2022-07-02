@@ -73,7 +73,6 @@ const Add_food_post = () => {
         setLoading(false);
       }
 
-      console.log('hook: ', post);
     } catch (e) {
       console.log(e);
     }
@@ -85,7 +84,6 @@ const Add_food_post = () => {
     .get()
     .then((documentSnapshot) => {
       if( documentSnapshot.exists ) {
-        console.log('User Data', documentSnapshot.data());
         setUserData(documentSnapshot.data());
       }
     })
@@ -100,7 +98,6 @@ const Add_food_post = () => {
       height: 780,
       cropping: true,
     }).then((image) => {
-      console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
     });
@@ -112,7 +109,6 @@ const Add_food_post = () => {
       height: 780,
       cropping: true,
     }).then((image) => {
-      console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
     });
@@ -120,10 +116,8 @@ const Add_food_post = () => {
 
   const submitPost = async () => {
     const imageUrl = await uploadImage();
-    console.log('Image Url: ', imageUrl);
-    console.log('Post: ', post);
-    console.log('name: ', userData.fname);
-   if (userData.fname!="adminnda"){
+   
+   if (userData.fname!="admindna"){
     Alert.alert(
       'only adnim',
     );
@@ -141,7 +135,6 @@ const Add_food_post = () => {
       comments: null,
     })
     .then(() => {
-      console.log('Post Added!');
       Alert.alert(
         'Post published!',
         'Your post has been published Successfully!',

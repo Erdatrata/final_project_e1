@@ -51,7 +51,6 @@ const AddPostScreen = () => {
       height: 780,
       cropping: true,
     }).then((image) => {
-      console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
     });
@@ -59,8 +58,6 @@ const AddPostScreen = () => {
 
   const submitPost = async () => {
     const imageUrl = await uploadImage();
-    console.log('Image Url: ', imageUrl);
-    console.log('Post: ', post);
     firestore()
     .collection('posts')
     .add({
@@ -72,7 +69,6 @@ const AddPostScreen = () => {
       comments: null,
     })
     .then(() => {
-      console.log('Post Added!');
       Alert.alert(
         'Post published!',
         'Your post has been published Successfully!',

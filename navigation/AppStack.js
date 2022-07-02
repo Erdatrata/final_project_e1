@@ -521,7 +521,7 @@ const AppStack = () => {
       />
 
       <Drawer.Screen
-      name="free ride"
+      name="Location"
       component={ Map_function}
       options={{
         drawerIcon:({focused,color,size})=>(

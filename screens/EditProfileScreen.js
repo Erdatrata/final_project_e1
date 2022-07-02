@@ -46,7 +46,6 @@ const EditProfileScreen = () => {
     .get()
     .then((documentSnapshot) => {
       if( documentSnapshot.exists ) {
-        console.log('User Data', documentSnapshot.data());
         setUserData(documentSnapshot.data());
       }
     })
@@ -55,10 +54,9 @@ const EditProfileScreen = () => {
   const handleUpdate = async() => {
     let imgUrl = await uploadImage();
     let t=  await onLogin(userData);
-   console.log("pass=",t)
-   console.log("data=",userData)
+  
    if (t==undefined){
-    console.log("okk")
+    console.log("null")
    }
    if (t==null){
      return null;
@@ -143,13 +141,9 @@ const EditProfileScreen = () => {
     try {
       const database = getDatabase();
       //first check if the user registered before
-      if(userData.fname || userData.lname ){
-        console.log("fname=",userData.fname)
-        console.log("lname=",userData.lname)
-      }
+    
       const username=userData.fname+' '+userData.lname
       const user = await findUser(username);
-      console.log("user=",user)
       //create a new user if not registered
       if (user) {
         if (username==user.username){
@@ -166,7 +160,6 @@ const EditProfileScreen = () => {
         };
 
         set(ref(database, `users/${username}`), newUserObj);
-        console.log("d=",userData)
         return userData;
       }
 
@@ -192,7 +185,6 @@ const EditProfileScreen = () => {
       cropping: true,
       compressImageQuality: 0.7,
     }).then((image) => {
-      console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
       this.bs.current.snapTo(1);
@@ -206,7 +198,6 @@ const EditProfileScreen = () => {
       cropping: true,
       compressImageQuality: 0.7,
     }).then((image) => {
-      console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
       this.bs.current.snapTo(1);

@@ -80,6 +80,8 @@ const PostCard = ({item, onDelete, like_function, onPress}) => {
           <TouchableOpacity onPress={onPress}>
             <UserName>
               {userData ? userData.fname || 'Test' : 'Test'}{' '}
+              {userData ? userData.lname || 'Test' : 'Test'}{' '}
+              
               
             </UserName>
           </TouchableOpacity>
