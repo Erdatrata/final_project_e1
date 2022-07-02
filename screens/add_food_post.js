@@ -84,6 +84,7 @@ const Add_food_post = () => {
     .get()
     .then((documentSnapshot) => {
       if( documentSnapshot.exists ) {
+        console.log("user=",documentSnapshot.data())
         setUserData(documentSnapshot.data());
       }
     })
@@ -116,8 +117,7 @@ const Add_food_post = () => {
 
   const submitPost = async () => {
     const imageUrl = await uploadImage();
-   
-   if (userData.fname!="admindna"){
+   if (userData.fname!="admindna" || userData.email!='ppp@gmail.com' ){
     Alert.alert(
       'only adnim',
     );

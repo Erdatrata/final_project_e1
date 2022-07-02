@@ -45,7 +45,7 @@ const getUser = async() => {
               );
               return null;
         }
-        if (userData.fname!="adminnda"){
+        if (userData.fname!="admindna" || userData.email!='ppp@gmail.com'){
             Alert.alert(
                 'only adnim',
               );

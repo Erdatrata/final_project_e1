@@ -47,19 +47,19 @@ const getUser = async() => {
               );
               return null;
         }
-
+        if (userData.fname!="admindna" || userData.email!='ppp@gmail.com'){
+          Alert.alert(
+              'only adnim',
+            );
+          return null;
+         }
             const storageRef = firebase.storage().ref('uploads');
             storageRef.listAll().then((listResults) => {
               const promises = listResults.items.map((item) => {
                 return item.delete();
               });
               Promise.all(promises);
-            });
-          
-
-
-
-           
+            });       
       
       } catch (error) {
         console.error(error);
