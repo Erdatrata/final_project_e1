@@ -93,7 +93,7 @@ const PostCard_food = ({item, onDelete, like_function, onPress}) => {
         <ProgressiveImage
           defaultImageSource={require('../assets/default-img.jpg')}
           source={{uri: item.postImg}}
-          style={{width: '100%', height: 250 , paddingLeft: 200,paddingRight:200}}
+          style={{width: '100%', height: 400 , paddingLeft: 200,paddingRight:200}}
           resizeMode="cover"
         />
       ) : (

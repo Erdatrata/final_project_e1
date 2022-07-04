@@ -11,6 +11,7 @@ import {
  
 } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import auth from '@react-native-firebase/auth';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -18,8 +19,9 @@ import PostCard from '../components/PostCard';
 
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
-
+import { firebase } from '@react-native-firebase/auth';
 import {Container} from '../styles/FeedStyles';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut,deleteUser } from "firebase/auth";
 
 
 
@@ -98,7 +100,7 @@ const HomeScreen = ({navigation}) => {
 const like_fun = async (postId) => {
 
   var sum=0;
- var b=false;
+  var b=false;
   sum=postId.likes+1
   await  firestore()
     .collection('posts')
@@ -116,7 +118,52 @@ const like_fun = async (postId) => {
    
     fetchPosts();
   }
+const user_Delete = (userId) => {
+    console.log("post=",userId)
+    Alert.alert(
+      'Delete user',
+      'Are you sure?',
+    );
+    // admin.auth().deleteUser(uid)
+    // .then(function() {
+    //     console.log("Successfully deleted user");
+    // })
+    // .catch(function(error) {
+    //     console.log("Error deleting user:", error);
+    // });
 
+    firebase.auth().currentUser.getIdTokenResult()
+    .then((idTokenResult) => {
+       // Confirm the user is an Admin.
+       if (!!idTokenResult.claims.admin) {
+         // Show admin UI.
+         console.log("admin")
+         showAdminUI();
+       } else {
+         // Show regular user UI.
+         console.log("regular user")
+
+         showRegularUI();
+       }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+
+
+ 
+    deleteUser(userId).then(() => {
+      Alert.alert(
+        ' success',
+        'user Deleted',
+      );
+      
+    }).catch((error) => {
+      // An error ocurred
+      // ...
+    });
+  };
 
   const handleDelete = (postId) => {
     console.log("post=",postId)
@@ -242,6 +289,7 @@ const like_fun = async (postId) => {
               <PostCard
                 item={item}
                 onDelete={handleDelete}
+                userDelete={user_Delete}
                 like_function={like_fun}
                 onPress={() =>
                   navigation.navigate('HomeProfile', {userId: item.userId})
