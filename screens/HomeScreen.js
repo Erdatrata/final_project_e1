@@ -119,6 +119,7 @@ const like_fun = async (postId) => {
 
 
   const handleDelete = (postId) => {
+    console.log("post=",postId)
     Alert.alert(
       'Delete post',
       'Are you sure?',
@@ -147,6 +148,7 @@ const like_fun = async (postId) => {
           const {postImg} = documentSnapshot.data();
 
           if (postImg != null) {
+            console.log("see=",postImg)
             const storageRef = storage().refFromURL(postImg);
             const imageRef = storage().ref(storageRef.fullPath);
 

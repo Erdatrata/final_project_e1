@@ -11,6 +11,10 @@ const rest_password = () => {
         try {
             console.log("email=",email)
             await auth().sendPasswordResetEmail(email);
+            Alert.alert(
+                'Succeeded',
+                'Check for spam!',
+              );
             setShowLoading(false);
         } catch (e) {
             setShowLoading(false);

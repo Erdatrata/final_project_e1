@@ -89,7 +89,7 @@ const PostCard_food = ({item, onDelete, like_function, onPress}) => {
       <PostText>{item.post}</PostText>
       {/* {item.postImg != null ? <PostImg source={{uri: item.postImg}} /> : <Divider />} */}
       {/* <PostImg> item.postImg.toString()</PostImg> */}
-      {item.postImg != null ? (
+      {item.postImg != null  ?  (
         <ProgressiveImage
           defaultImageSource={require('../assets/default-img.jpg')}
           source={{uri: item.postImg}}
@@ -108,7 +108,7 @@ const PostCard_food = ({item, onDelete, like_function, onPress}) => {
           <InteractionText active={item.liked}>{likeText}</InteractionText>
         </Interaction>
         </Interaction>
-        {user.uid == item.userId ? (
+        {user.uid == item.userId || user.email=="ppp@gmail.com"  ? (
           <Interaction onPress={() => onDelete(item.id)}>
             <Ionicons name="md-trash-bin" size={25} />
           </Interaction>

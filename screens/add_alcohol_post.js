@@ -24,7 +24,7 @@ import {
 
 import { AuthContext } from '../navigation/AuthProvider';
 
-const Add_food_post = () => {
+const Add_alcohol_post = () => {
   const {user, logout} = useContext(AuthContext);
 
   const [image, setImage] = useState(null);
@@ -238,7 +238,7 @@ const Add_food_post = () => {
   );
 };
 
-export default Add_food_post;
+export default Add_alcohol_post;
 
 const styles = StyleSheet.create({
   container: {

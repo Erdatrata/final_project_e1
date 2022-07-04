@@ -55,7 +55,9 @@ const PostCard = ({item, onDelete, like_function, onPress}) => {
       .get()
       .then((documentSnapshot) => {
         if (documentSnapshot.exists) {
-          // console.log('User Data', documentSnapshot.data());
+          console.log('User Data', user);
+          console.log('User Data_2=', user.uid);
+
           setUserData(documentSnapshot.data());
         }
       });
@@ -95,7 +97,7 @@ const PostCard = ({item, onDelete, like_function, onPress}) => {
         <ProgressiveImage
           defaultImageSource={require('../assets/default-img.jpg')}
           source={{uri: item.postImg}}
-          style={{width: '100%', height: 250 , paddingLeft: 200,paddingRight:200}}
+          style={{width: '100%', height: 350 , paddingLeft: 200,paddingRight:200}}
           resizeMode="cover"
         />
       ) : (
@@ -114,7 +116,7 @@ const PostCard = ({item, onDelete, like_function, onPress}) => {
       
      
      
-        {user.uid == item.userId ? (
+        {user.uid == item.userId || user.email=="ppp@gmail.com" ? (
           <Interaction onPress={() => onDelete(item.id)}>
             <Ionicons name="md-trash-bin" size={25} />
           </Interaction>

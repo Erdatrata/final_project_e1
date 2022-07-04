@@ -44,7 +44,7 @@ LogBox.ignoreAllLogs();//Ignore all log notifications
 const FeedStack = ({navigation}) => (
   <Stack.Navigator>
     <Stack.Screen
-      name="RN Social"
+      name="DNA BAR"
       component={HomeScreen}
       options={{
         headerTitleAlign: 'center',

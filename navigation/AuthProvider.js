@@ -45,13 +45,14 @@ export const AuthProvider = ({children}) => {
             );
           }
           else{
-            Alert.alert(
-              'Successful connection will wait a few seconds!',
-            );
+         
           try {
         
             await auth().createUserWithEmailAndPassword(email, password)
             .then(() => {
+              Alert.alert(
+                'Successful connection will wait a few seconds!',
+              );
               //Once the user creation has happened successfully, we can add the currentUser into firestore
               //with the appropriate details.
               // console.log('current User', auth().currentUser);
@@ -71,6 +72,10 @@ export const AuthProvider = ({children}) => {
           }
           catch(e){
             console.log(e);
+            Alert.alert(
+              'The email already exists',
+              'Try another email',
+            );
           }  
         }     
         },
@@ -80,6 +85,7 @@ export const AuthProvider = ({children}) => {
             await auth().signOut();
           } catch (e) {
             console.log(e);
+          
           }
         },
       }}>
