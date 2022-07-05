@@ -41,7 +41,7 @@ const getUser = async() => {
         const tamp=await getUser();
         if(userData==null){
             Alert.alert(
-                'Try again',
+                'Delete the list Click',
               );
               return null;
         }

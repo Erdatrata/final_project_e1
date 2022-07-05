@@ -54,7 +54,8 @@ const App_user_come = ({navigation}) => {
     const user = await findUser();
     if(userData==null){
         Alert.alert(
-            'Try again',
+          'Confirms the exposure',
+            'Click again',
           );
           return null;
     }
