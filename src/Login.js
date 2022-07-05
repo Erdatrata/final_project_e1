@@ -1,9 +1,10 @@
 import React from 'react';
-import {Button, StyleSheet, TextInput, View} from 'react-native';
+import {Button, StyleSheet, TextInput, View,Text} from 'react-native';
 
 export default function Login({onLogin, username, setUsername}) {
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Enter a name and last name</Text>
       <TextInput
         style={styles.input}
         onChangeText={setUsername}
@@ -27,5 +28,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 20,
     paddingHorizontal: 20,
+  },
+  title: {
+    marginTop: 10,
+    marginVertical: 8,
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 18,
   },
 });

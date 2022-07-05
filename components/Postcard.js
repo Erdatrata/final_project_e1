@@ -113,8 +113,6 @@ const PostCard = ({item, onDelete, like_function, onPress}) => {
         
         </Interaction>
       
-     
-     
         {user.uid == item.userId || user.email=="ppp@gmail.com" ? (
           <Interaction onPress={() => onDelete(item.id)}>
             <Ionicons name="md-trash-bin" size={25} />

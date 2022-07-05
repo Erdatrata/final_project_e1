@@ -118,55 +118,54 @@ const like_fun = async (postId) => {
    
     fetchPosts();
   }
-const user_Delete = (userId) => {
-    console.log("post=",userId)
-    Alert.alert(
-      'Delete user',
-      'Are you sure?',
-    );
-    // admin.auth().deleteUser(uid)
-    // .then(function() {
-    //     console.log("Successfully deleted user");
-    // })
-    // .catch(function(error) {
-    //     console.log("Error deleting user:", error);
-    // });
+// const user_Delete = (userId) => {
+//     console.log("post=",userId)
+//     Alert.alert(
+//       'Delete user',
+//       'Are you sure?',
+//     );
+//     // admin.auth().deleteUser(uid)
+//     // .then(function() {
+//     //     console.log("Successfully deleted user");
+//     // })
+//     // .catch(function(error) {
+//     //     console.log("Error deleting user:", error);
+//     // });
 
-    firebase.auth().currentUser.getIdTokenResult()
-    .then((idTokenResult) => {
-       // Confirm the user is an Admin.
-       if (!!idTokenResult.claims.admin) {
-         // Show admin UI.
-         console.log("admin")
-         showAdminUI();
-       } else {
-         // Show regular user UI.
-         console.log("regular user")
+//     firebase.auth().currentUser.getIdTokenResult()
+//     .then((idTokenResult) => {
+//        // Confirm the user is an Admin.
+//        if (!!idTokenResult.claims.admin) {
+//          // Show admin UI.
+//          console.log("admin")
+//          showAdminUI();
+//        } else {
+//          // Show regular user UI.
+//          console.log("regular user")
 
-         showRegularUI();
-       }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+//          showRegularUI();
+//        }
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
 
 
 
  
-    deleteUser(userId).then(() => {
-      Alert.alert(
-        ' success',
-        'user Deleted',
-      );
+//     deleteUser(userId).then(() => {
+//       Alert.alert(
+//         ' success',
+//         'user Deleted',
+//       );
       
-    }).catch((error) => {
-      // An error ocurred
-      // ...
-    });
-  };
+//     }).catch((error) => {
+//       // An error ocurred
+//       // ...
+//     });
+//   };
 
   const handleDelete = (postId) => {
-    console.log("post=",postId)
     Alert.alert(
       'Delete post',
       'Are you sure?',
@@ -195,7 +194,6 @@ const user_Delete = (userId) => {
           const {postImg} = documentSnapshot.data();
 
           if (postImg != null) {
-            console.log("see=",postImg)
             const storageRef = storage().refFromURL(postImg);
             const imageRef = storage().ref(storageRef.fullPath);
 
@@ -289,7 +287,6 @@ const user_Delete = (userId) => {
               <PostCard
                 item={item}
                 onDelete={handleDelete}
-                userDelete={user_Delete}
                 like_function={like_fun}
                 onPress={() =>
                   navigation.navigate('HomeProfile', {userId: item.userId})
